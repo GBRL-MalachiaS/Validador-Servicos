@@ -3,7 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from datetime import datetime, timestamp
+from datetime import datetime, timestamp, timedelta
 
 
 servicos_windows = {}
