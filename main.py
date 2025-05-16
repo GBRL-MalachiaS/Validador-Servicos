@@ -1,7 +1,9 @@
 import psutil
 import smtplib
+from email.mime.text import MIMEText
+from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from datetime import datetime, timedelta
+from datetime import datetime, timestamp
 
 
 servicos_windows = {}
@@ -46,6 +48,46 @@ def ultima_execucao(nome_servico):
     return f"O serviço '{nome_servico}' não foi encontrado."
 
 
+def enviar_email(mensagem):
+    if mensagem is not None:
+        # Carregar credenciais OAuth do arquivo JSON
+        creds = Credentials.from_authorized_user_file("token.json")
+        
+        if not creds.valid:
+            if creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+
+        SMTP_SERVER = "smtp.gmail.com"
+        SMTP_PORT = 587
+        EMAIL_REMETENTE = "tecnologiarte607@gmail.com"
+        EMAIL_DESTINO = "gabriel.malachias@rte.com.br"
+
+        # Criando mensagem formatada corretamente
+        msg = MIMEText(mensagem)
+        msg["Subject"] = "Teste de envio com OAuth2"
+        msg["From"] = EMAIL_REMETENTE
+        msg["To"] = EMAIL_DESTINO
+
+        try:
+            server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+            server.starttls()
+
+            # Autenticação via OAuth2
+            auth_string = f"user={EMAIL_REMETENTE}\x01auth=Bearer {creds.token}\x01\x01"
+            server.docmd("AUTH", "XOAUTH2 " + auth_string)
+
+            # Envio do e-mail
+            server.sendmail(EMAIL_REMETENTE, EMAIL_DESTINO, msg.as_string())
+            server.quit()
+            return True
+        
+        except Exception as e:
+            print(f"Erro ao enviar e-mail: {e}")
+            return False
+    
+    return False
+
+
 nome_do_servico = "WinDefend"
 hora_atual = datetime.now()
 # print(validar_servico(nome_do_servico))
@@ -55,15 +97,4 @@ execucao = ultima_execucao(nome_do_servico)
 tempo_sem_execucao = hora_atual - execucao
 
 if tempo_sem_execucao > timedelta(minutes=60):
-    creds = Credentials.from_authorized_user_file("token.json")
-
-    SMTP_SERVER = "smtp.gmail.com"
-    SMTP_PORT = 587
-
-    server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-    server.starttls()
-    server.login(creds.token, creds.token_uri)  # Autenticando via OAuth
-    server.sendmail("tecnologiarte607@gmail.com", "gabriel.malachias@rte.com.br", "Testando envio de e-mail via OAuth")
-    server.quit()
-
     print('é maior')
