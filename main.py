@@ -3,7 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from datetime import datetime, timestamp, timedelta
+from datetime import datetime, timedelta
 
 
 servicos_windows = {}
@@ -52,14 +52,14 @@ def enviar_email(mensagem):
     if mensagem is not None:
         # Carregar credenciais OAuth do arquivo JSON
         creds = Credentials.from_authorized_user_file("token.json")
-        
+
         if not creds.valid:
             if creds.expired and creds.refresh_token:
                 creds.refresh(Request())
 
         SMTP_SERVER = "smtp.gmail.com"
         SMTP_PORT = 587
-        EMAIL_REMETENTE = "tecnologiarte607@gmail.com"
+        EMAIL_REMETENTE = "gbl.malachias@gmail.com"
         EMAIL_DESTINO = "gabriel.malachias@rte.com.br"
 
         # Criando mensagem formatada corretamente
@@ -80,11 +80,11 @@ def enviar_email(mensagem):
             server.sendmail(EMAIL_REMETENTE, EMAIL_DESTINO, msg.as_string())
             server.quit()
             return True
-        
+
         except Exception as e:
             print(f"Erro ao enviar e-mail: {e}")
             return False
-    
+
     return False
 
 
@@ -94,7 +94,11 @@ hora_atual = datetime.now()
 # print(processamento(nome_do_servico))
 execucao = ultima_execucao(nome_do_servico)
 
-tempo_sem_execucao = hora_atual - execucao
+# tempo_sem_execucao = hora_atual - execucao
 
-if tempo_sem_execucao > timedelta(minutes=60):
-    print('é maior')
+# if tempo_sem_execucao > timedelta(minutes=60):
+#     print('é maior')
+# else:
+print('Está dentro dos 60 mim')
+msg = "aqui está o teste de envio."
+enviar_email('texto de teste')
