@@ -8,6 +8,12 @@ from datetime import datetime, timedelta
 
 
 def listar_servicos():
+    """
+    _summary_
+    Serviço responsavel por retornar um dicionario com todos os serviços ativos/inativos dentro do servidor
+    Returns:
+        dict: retorna um dicionario com a listas ativos e inativos da maquina. 
+    """
     servicos_windows = {}
     for servico in psutil.win_service_iter():
         try:
@@ -24,6 +30,14 @@ def listar_servicos():
 
 
 def validar_servico(nome_servico):
+    """
+    _summary_
+        Valida se o serviço existe dentro do sistema operacional. 
+    Args:
+        nome_servico (str): Argumento responsavel por definir o serviço procurado. 
+    Returns:
+        str: retorna se o serviço foi encontrado dentro do sistema ou não. 
+    """
     for servico in psutil.win_service_iter():
         
         if nome_servico in servico.name():
@@ -33,6 +47,17 @@ def validar_servico(nome_servico):
 
 
 def processamento(nome_servico):
+    """
+    _summary_
+        Serviço retorna os dados de processamento. 
+    Args:
+    nome_servico (str): Argumento responsavel por definir o serviço procurado.
+
+    Returns:
+    dict: retornar um dicionario com os registro de processamento do serviço enviado, como:
+    nome, uso de cpu, memoria e status do processo
+    """
+    
     for servico in psutil.win_service_iter():
         
         if nome_servico == servico.name():
@@ -50,6 +75,15 @@ def processamento(nome_servico):
 
 
 def ultima_execucao(nome_servico):
+    """
+    _summary_
+    Retonar a data e a hora da ultima execução do serviço enviado em args
+    Args:
+    nome_servico (str): Argumento responsavel por definir o serviço procurado.
+
+    Returns:
+        datetime: retona a data/hora da execução do serviço selecionado. 
+    """
     for servico in psutil.win_service_iter():
         if nome_servico.lower() in servico.name().lower():
             pid = servico.pid()
@@ -63,6 +97,15 @@ def ultima_execucao(nome_servico):
     return f"O serviço '{nome_servico}' não foi encontrado."
 
 def validar_api(url):
+    """
+    _summary_
+    Responsavel por retornar o se a api enviada está em funcionamento
+    Args:
+        url (str): envia para função a url para ser validada.
+
+    Returns:
+        boolean: retornar se a api está em funcionamento juntamente com a mensagem de status
+    """
     try:
         resposta = requests.get(url, timeout=5)
         if resposta.status_code == 200:
@@ -77,6 +120,16 @@ def validar_api(url):
 
 
 def enviar_email_api(mensagem,servico):
+    """
+    _summary_
+    API, responsavel por enviar a mensagem de erro caso o serviço aprensente problema.
+    Args:
+        mensagem (_type_): _description_
+        servico (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     creds = Credentials.from_authorized_user_file("token.json")
 
     # Cria a mensagem MIME
@@ -111,6 +164,7 @@ hora_atual = datetime.now()
 print(processamento(nome_do_servico))
 
 execucao = ultima_execucao(nome_do_servico)
+print(type(execucao))
 
-if (hora_atual - execucao) > timedelta(minutes=60):
-    enviar_email_api(f'O serviço {nome_do_servico}, foi executado a {execucao.strftime("%d/%m/%Y - %H:%M:%S")} a traz. \n necessário a ação humana',nome_do_servico)
+# if (hora_atual - execucao) > timedelta(minutes=60):
+#     enviar_email_api(f'O serviço {nome_do_servico}, foi executado a {execucao.strftime("%d/%m/%Y - %H:%M:%S")} a traz. \n necessário a ação humana',nome_do_servico)
