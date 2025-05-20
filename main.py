@@ -122,13 +122,15 @@ def validar_api(url):
 def enviar_email_api(mensagem,servico):
     """
     _summary_
+    
     API, responsavel por enviar a mensagem de erro caso o serviço aprensente problema.
+    
     Args:
-        mensagem (_type_): _description_
-        servico (_type_): _description_
+        mensagem (str): envia a mensagem de erro, caso apresente falha em um dos serviços. 
+        servico (str): envia o serviço selecionado que aprensetou para mensagem de e-mail. 
 
     Returns:
-        _type_: _description_
+        boolean: retorno se houve sucesso ou não para o envio da mensagem.
     """
     creds = Credentials.from_authorized_user_file("token.json")
 
@@ -166,5 +168,5 @@ print(processamento(nome_do_servico))
 execucao = ultima_execucao(nome_do_servico)
 print(type(execucao))
 
-# if (hora_atual - execucao) > timedelta(minutes=60):
-#     enviar_email_api(f'O serviço {nome_do_servico}, foi executado a {execucao.strftime("%d/%m/%Y - %H:%M:%S")} a traz. \n necessário a ação humana',nome_do_servico)
+if (hora_atual - execucao) > timedelta(minutes=60):
+    enviar_email_api(f'O serviço {nome_do_servico}, foi executado a {execucao.strftime("%d/%m/%Y - %H:%M:%S")} a traz. \n Necessário a ação humana',nome_do_servico)
