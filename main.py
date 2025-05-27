@@ -6,13 +6,22 @@ from googleapiclient.discovery import build
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 
+# Exceções customizadas para tratamento dos serviços
+class ServiceNotFoundException(Exception):
+    """Exceção disparada quando o serviço não é encontrado."""
+    pass
+
+class ServiceInactiveException(Exception):
+    """Exceção disparada quando o serviço está registrado, mas não possui um processo ativo ou não pode ser processado."""
+    pass
+
+class ServiceStaleExecutionException(Exception):
+    """Exceção disparada quando a última execução do serviço é anterior ao tempo permitido."""
+    pass
 
 def listar_servicos():
     """
-    _summary_
-    Serviço responsavel por retornar um dicionario com todos os serviços ativos/inativos dentro do servidor
-    Returns:
-        dict: retorna um dicionario com a listas ativos e inativos da maquina. 
+    Retorna um dicionário com todos os serviços ativos/inativos do servidor.
     """
     servicos_windows = {}
     for servico in psutil.win_service_iter():
@@ -28,61 +37,66 @@ def listar_servicos():
             continue
     return servicos_windows
 
-
 def validar_servico(nome_servico):
     """
-    _summary_
-        Valida se o serviço existe dentro do sistema operacional. 
+    Valida se o serviço existe no sistema operacional.
+    
     Args:
-        nome_servico (str): Argumento responsavel por definir o serviço procurado. 
+        nome_servico (str): Nome do serviço procurado.
+    
     Returns:
-        str: retorna se o serviço foi encontrado dentro do sistema ou não. 
+        str: Mensagem informando que o serviço foi encontrado.
+    
+    Raises:
+        ServiceNotFoundException: Se o serviço não for encontrado.
     """
     for servico in psutil.win_service_iter():
-        
-        if nome_servico in servico.name():
-            return f'Serviço de {nome_do_servico} foi encontrado.'
-        
-    return f"Serviço '{nome_servico}' não encontrado."
-
+        if nome_servico.lower() in servico.name().lower():
+            return f"Serviço {nome_servico} foi encontrado."
+    raise ServiceNotFoundException(f"Serviço '{nome_servico}' não encontrado.")
 
 def processamento(nome_servico):
     """
-    _summary_
-        Serviço retorna os dados de processamento. 
-    Args:
-    nome_servico (str): Argumento responsavel por definir o serviço procurado.
-
-    Returns:
-    dict: retornar um dicionario com os registro de processamento do serviço enviado, como:
-    nome, uso de cpu, memoria e status do processo
-    """
+    Retorna os dados de processamento do serviço.
     
+    Args:
+        nome_servico (str): Nome do serviço procurado.
+    
+    Returns:
+        dict: Dicionário com nome, uso de CPU, memória e status do processo.
+    
+    Raises:
+        ServiceNotFoundException: Se o serviço não for encontrado.
+        ServiceInactiveException: Se ocorrer erro ao acessar o processo do serviço.
+    """
     for servico in psutil.win_service_iter():
-        
-        if nome_servico == servico.name():
-            pid = servico.pid()
-            processo = psutil.Process(pid)
-            return {
-                "nome": processo.name(),  # Metodo retorna o nome do processo
-                # Metodo retornar o processamento de CPU
-                "uso_cpu": processo.cpu_percent(interval=1),
-                # Retorna o uso de memoria em MB
-                "uso_memoria": processo.memory_info().rss / (1024 ** 2),
-                # Valida se o serviço está rodando.
-                "status": processo.status(),
-            }
-
+        if nome_servico.lower() == servico.name().lower():
+            try:
+                pid = servico.pid()
+                processo = psutil.Process(pid)
+                return {
+                    "nome": processo.name(),
+                    "uso_cpu": processo.cpu_percent(interval=1),
+                    "uso_memoria": processo.memory_info().rss / (1024 ** 2),
+                    "status": processo.status(),
+                }
+            except Exception as e:
+                raise ServiceInactiveException(f"Erro ao processar o serviço {nome_servico}: {e}")
+    raise ServiceNotFoundException(f"Serviço '{nome_servico}' não foi encontrado para processamento.")
 
 def ultima_execucao(nome_servico):
     """
-    _summary_
-    Retonar a data e a hora da ultima execução do serviço enviado em args
+    Retorna a data e a hora da última execução do serviço.
+    
     Args:
-    nome_servico (str): Argumento responsavel por definir o serviço procurado.
-
+        nome_servico (str): Nome do serviço procurado.
+    
     Returns:
-        datetime: retona a data/hora da execução do serviço selecionado. 
+        datetime: Data e hora da criação do processo.
+    
+    Raises:
+        ServiceNotFoundException: Se o serviço não for encontrado.
+        ServiceInactiveException: Se o serviço não possuir um processo ativo.
     """
     for servico in psutil.win_service_iter():
         if nome_servico.lower() in servico.name().lower():
@@ -91,20 +105,20 @@ def ultima_execucao(nome_servico):
                 processo = psutil.Process(pid)
                 timestamp = processo.create_time()
                 hora_inicio = datetime.fromtimestamp(timestamp)
-                return hora_inicio  # Retorna a dia e hora que foi a ultima execução do serviço
+                return hora_inicio
             else:
-                return f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo."
-    return f"O serviço '{nome_servico}' não foi encontrado."
+                raise ServiceInactiveException(f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo.")
+    raise ServiceNotFoundException(f"O serviço '{nome_servico}' não foi encontrado.")
 
 def validar_api(url):
     """
-    _summary_
-    Responsavel por retornar o se a api enviada está em funcionamento
+    Valida se a API enviada está em funcionamento.
+    
     Args:
-        url (str): envia para função a url para ser validada.
-
+        url (str): URL da API a ser validada.
+    
     Returns:
-        boolean: retornar se a api está em funcionamento juntamente com a mensagem de status
+        bool: True se a API responder com status 200, False caso contrário.
     """
     try:
         resposta = requests.get(url, timeout=5)
@@ -118,29 +132,23 @@ def validar_api(url):
         print(f"Erro ao acessar a API: {e}")
         return False
 
-
-def enviar_email_api(mensagem,servico):
+def enviar_email_api(mensagem, servico):
     """
-    _summary_
-    
-    API, responsavel por enviar a mensagem de erro caso o serviço aprensente problema.
+    Envia a mensagem de erro via e-mail caso o serviço apresente problema.
     
     Args:
-        mensagem (str): envia a mensagem de erro, caso apresente falha em um dos serviços. 
-        servico (str): envia o serviço selecionado que aprensetou para mensagem de e-mail. 
-
+        mensagem (str): Mensagem de erro a ser enviada.
+        servico (str): Nome do serviço que apresentou problema.
+    
     Returns:
-        boolean: retorno se houve sucesso ou não para o envio da mensagem.
+        bool: True se o e-mail foi enviado com sucesso, False caso contrário.
     """
     creds = Credentials.from_authorized_user_file("token.json")
-
-    # Cria a mensagem MIME
     msg = MIMEText(mensagem)
     msg["to"] = "gabriel.malachias@rte.com.br"
     msg["from"] = "gbl.malachias@gmail.com"
     msg["subject"] = f"Serviço {servico} - PROBLEMA"
 
-    # Codifica a mensagem em base64
     raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
 
     try:
@@ -153,20 +161,35 @@ def enviar_email_api(mensagem,servico):
         print(f"Erro ao enviar e-mail via API: {e}")
         return False
 
+# --- EXEMPLO DE USO ---
+if __name__ == "__main__":
+    # Validação da API
+    validar_api("https://api.adviceslip.com/advice")
 
+    nome_do_servico = 'LansweeperAgentService'
+    hora_atual = datetime.now()
 
-# Exemplo de uso
-validar_api("https://api.adviceslip.com/advice")
+    try:
+        # Valida se o serviço existe
+        print(validar_servico(nome_do_servico))
+        
+        # Obtém e imprime dados de processamento
+        dados_processamento = processamento(nome_do_servico)
+        print("Dados de processamento:", dados_processamento)
+        
+        # Obtém a última execução do serviço
+        execucao = ultima_execucao(nome_do_servico)
+        print("Horário da última execução:", execucao.strftime("%d/%m/%Y - %H:%M:%S"))
 
-
-nome_do_servico = 'LansweeperAgentService'
-servicos = listar_servicos()
-hora_atual = datetime.now()
-
-print(processamento(nome_do_servico))
-
-execucao = ultima_execucao(nome_do_servico)
-print(type(execucao))
-
-if (hora_atual - execucao) > timedelta(minutes=60):
-    enviar_email_api(f'O serviço {nome_do_servico}, foi executado a {execucao.strftime("%d/%m/%Y - %H:%M:%S")} a traz. \n Necessário a ação humana',nome_do_servico)
+        # Se a última execução for anterior a 60 minutos, levanta exceção para disparar o alerta
+        if (hora_atual - execucao) > timedelta(minutes=60):
+            raise ServiceStaleExecutionException(
+                f'O serviço {nome_do_servico} foi executado em {execucao.strftime("%d/%m/%Y - %H:%M:%S")}, há mais de 60 minutos. A ação humana é necessária.'
+            )
+        else:
+            print("O serviço está sendo executado conforme esperado.")
+    
+    # Caso ocorra qualquer uma das exceções relacionadas ao serviço, envia o e-mail de alerta
+    except (ServiceNotFoundException, ServiceInactiveException, ServiceStaleExecutionException) as e:
+        print(f"Erro detectado: {e}")
+        enviar_email_api(str(e), nome_do_servico)
