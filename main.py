@@ -1,23 +1,30 @@
 import psutil
 import base64
 import requests
+import time
+import json
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 
 # Exceções customizadas para tratamento dos serviços
+
+
 class ServiceNotFoundException(Exception):
     """Exceção disparada quando o serviço não é encontrado."""
     pass
+
 
 class ServiceInactiveException(Exception):
     """Exceção disparada quando o serviço está registrado, mas não possui um processo ativo ou não pode ser processado."""
     pass
 
+
 class ServiceStaleExecutionException(Exception):
     """Exceção disparada quando a última execução do serviço é anterior ao tempo permitido."""
     pass
+
 
 def listar_servicos():
     """
@@ -35,18 +42,24 @@ def listar_servicos():
         except Exception as e:
             print(f"Erro ao acessar serviço: {e}")
             continue
-    return servicos_windows
+
+        # Gera um arquivo json, com todos os status do serviços do windows
+        with open('servicos.json', 'w', encoding='utf-8') as arquivo:
+            json.dump(servicos_windows, arquivo, indent=4, ensure_ascii=False)
+
+    return True
+
 
 def validar_servico(nome_servico):
     """
     Valida se o serviço existe no sistema operacional.
-    
+
     Args:
         nome_servico (str): Nome do serviço procurado.
-    
+
     Returns:
         str: Mensagem informando que o serviço foi encontrado.
-    
+
     Raises:
         ServiceNotFoundException: Se o serviço não for encontrado.
     """
@@ -55,16 +68,17 @@ def validar_servico(nome_servico):
             return f"Serviço {nome_servico} foi encontrado."
     raise ServiceNotFoundException(f"Serviço '{nome_servico}' não encontrado.")
 
+
 def processamento(nome_servico):
     """
     Retorna os dados de processamento do serviço.
-    
+
     Args:
         nome_servico (str): Nome do serviço procurado.
-    
+
     Returns:
         dict: Dicionário com nome, uso de CPU, memória e status do processo.
-    
+
     Raises:
         ServiceNotFoundException: Se o serviço não for encontrado.
         ServiceInactiveException: Se ocorrer erro ao acessar o processo do serviço.
@@ -81,19 +95,22 @@ def processamento(nome_servico):
                     "status": processo.status(),
                 }
             except Exception as e:
-                raise ServiceInactiveException(f"Erro ao processar o serviço {nome_servico}: {e}")
-    raise ServiceNotFoundException(f"Serviço '{nome_servico}' não foi encontrado para processamento.")
+                raise ServiceInactiveException(
+                    f"Erro ao processar o serviço {nome_servico}: {e}")
+    raise ServiceNotFoundException(
+        f"Serviço '{nome_servico}' não foi encontrado para processamento.")
+
 
 def ultima_execucao(nome_servico):
     """
     Retorna a data e a hora da última execução do serviço.
-    
+
     Args:
         nome_servico (str): Nome do serviço procurado.
-    
+
     Returns:
         datetime: Data e hora da criação do processo.
-    
+
     Raises:
         ServiceNotFoundException: Se o serviço não for encontrado.
         ServiceInactiveException: Se o serviço não possuir um processo ativo.
@@ -107,16 +124,19 @@ def ultima_execucao(nome_servico):
                 hora_inicio = datetime.fromtimestamp(timestamp)
                 return hora_inicio
             else:
-                raise ServiceInactiveException(f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo.")
-    raise ServiceNotFoundException(f"O serviço '{nome_servico}' não foi encontrado.")
+                raise ServiceInactiveException(
+                    f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo.")
+    raise ServiceNotFoundException(
+        f"O serviço '{nome_servico}' não foi encontrado.")
+
 
 def validar_api(url):
     """
     Valida se a API enviada está em funcionamento.
-    
+
     Args:
         url (str): URL da API a ser validada.
-    
+
     Returns:
         bool: True se a API responder com status 200, False caso contrário.
     """
@@ -132,14 +152,15 @@ def validar_api(url):
         print(f"Erro ao acessar a API: {e}")
         return False
 
+
 def enviar_email_api(mensagem, servico):
     """
     Envia a mensagem de erro via e-mail caso o serviço apresente problema.
-    
+
     Args:
         mensagem (str): Mensagem de erro a ser enviada.
         servico (str): Nome do serviço que apresentou problema.
-    
+
     Returns:
         bool: True se o e-mail foi enviado com sucesso, False caso contrário.
     """
@@ -154,43 +175,112 @@ def enviar_email_api(mensagem, servico):
     try:
         service = build("gmail", "v1", credentials=creds)
         message = {"raw": raw}
-        send_message = service.users().messages().send(userId="me", body=message).execute()
+        send_message = service.users().messages().send(
+            userId="me", body=message).execute()
         print(f"E-mail enviado! ID da mensagem: {send_message['id']}")
         return True
     except Exception as e:
         print(f"Erro ao enviar e-mail via API: {e}")
         return False
 
+# Função responsavel por gerar e carregar o arquivo Servicos.json
+def carregar_servicos():
+    # Chama a função listar serviços para gerar o arquivo serviços.json
+    listar_servicos()
+    with open('servicos.json', 'r', encoding='utf-8') as arquivo:
+        return json.load(arquivo)
+
+
 # --- EXEMPLO DE USO ---
 if __name__ == "__main__":
+     # Validação da API - Conselhos Aleatórios
+    validar_api("https://api.adviceslip.com/advice")
+
+    while True:
+        
+        hora_atual = datetime.now()
+        print("\nInicio da verificação:",
+              hora_atual.strftime("%d/%m/%Y - %H:%M:%S"))
+        # Carrega os serviços do JSON
+        servicos = carregar_servicos()
+
+        # Itera sobre cada serviço presente no JSON
+        for nome_do_servico, info in servicos.items():
+            print(f"\nValidando serviço: {nome_do_servico}")
+
+            if info.get("status", "").lower() in ["running", "active"]:
+                try:
+                    print(validar_servico(nome_do_servico))
+
+                    # Obtém dados de processamento e imprime
+                    dados_processamento = processamento(nome_do_servico)
+                    print("Dados de processamento:", dados_processamento)
+
+                    # Obtém a última execução do serviço
+                    execucao = ultima_execucao(nome_do_servico)
+                    print("Horário da última execução:",
+                          execucao.strftime("%d/%m/%Y - %H:%M:%S"))
+
+                    # Verifica se a última execução ocorreu há mais de 60 minutos
+                    if (hora_atual - execucao) > timedelta(minutes=60):
+                        raise ServiceStaleExecutionException(
+                            f'O serviço {nome_do_servico} foi executado em {execucao.strftime("%d/%m/%Y - %H:%M:%S")}, há mais de 60 minutos. A ação humana é necessária.'
+                        )
+                    else:
+                        print("O serviço está sendo executado conforme esperado.")
+
+                # Caso alguma exceção ocorra, dispara o alerta
+                except (ServiceNotFoundException, ServiceInactiveException, ServiceStaleExecutionException) as e:
+                    print(f"Erro detectado no serviço '{nome_do_servico}': {e}")
+                    enviar_email_api(str(e), nome_do_servico)
+            else:
+                print(
+                    f"Serviço '{nome_do_servico}' não está ativo (Status: {info.get('status')}).")
+       
+        print('pause para o tempo de 5 minutos')
+        # Tempo de espera para a proxima execução da função principal
+        time.sleep(300)
+
+
+# Trecho de codigo responsavel por executar o teste em um unico serviço
+"""
+if __name__ == "__main__":
+    # Variavel para validação de um unico serviço
+    nome_do_servico = 'LansweeperAgentService'
     
     # Validação da API - Conselhos Aleatórios
     validar_api("https://api.adviceslip.com/advice")
 
-    nome_do_servico = 'LansweeperAgentService'
-    hora_atual = datetime.now()
-
-    try:
-        # Valida se o serviço existe
-        print(validar_servico(nome_do_servico))
+    while True:
+        hora_atual = datetime.now()
+        print("\nInicio da verificação:", hora_atual.strftime("%d/%m/%Y - %H:%M:%S"))
         
-        # Obtém e imprime dados de processamento
-        dados_processamento = processamento(nome_do_servico)
-        print("Dados de processamento:", dados_processamento)
-        
-        # Obtém a última execução do serviço
-        execucao = ultima_execucao(nome_do_servico)
-        print("Horário da última execução:", execucao.strftime("%d/%m/%Y - %H:%M:%S"))
+        try:
+            # Valida se o serviço existe
+            print(validar_servico(nome_do_servico))
+            
+            # Obtém e imprime dados de processamento
+            dados_processamento = processamento(nome_do_servico)
+            print("Dados de processamento:", dados_processamento)
+            
+            # Obtém a última execução do serviço
+            execucao = ultima_execucao(nome_do_servico)
+            print("Horário da última execução:", execucao.strftime("%d/%m/%Y - %H:%M:%S"))
 
-        # Se a última execução for anterior a 60 minutos, levanta exceção para disparar o alerta
-        if (hora_atual - execucao) > timedelta(minutes=60):
-            raise ServiceStaleExecutionException(
-                f'O serviço {nome_do_servico} foi executado em {execucao.strftime("%d/%m/%Y - %H:%M:%S")}, há mais de 60 minutos. A ação humana é necessária.'
-            )
-        else:
-            print("O serviço está sendo executado conforme esperado.")
-    
-    # Caso ocorra qualquer uma das exceções relacionadas ao serviço, envia o e-mail de alerta
-    except (ServiceNotFoundException, ServiceInactiveException, ServiceStaleExecutionException) as e:
-        print(f"Erro detectado: {e}")
-        enviar_email_api(str(e), nome_do_servico)
+            # Se a última execução for anterior a 60 minutos, levanta exceção para disparar o alerta
+            if (hora_atual - execucao) > timedelta(minutes=60):
+                raise ServiceStaleExecutionException(
+                    f'O serviço {nome_do_servico} foi executado em {execucao.strftime("%d/%m/%Y - %H:%M:%S")}, há mais de 60 minutos. A ação humana é necessária.'
+                )
+            else:
+                print("O serviço está sendo executado conforme esperado.")
+        
+        # Caso ocorra qualquer uma das exceções relacionadas ao serviço, envia o e-mail de alerta
+        except (ServiceNotFoundException, ServiceInactiveException, ServiceStaleExecutionException) as e:
+            print(f"Erro detectado: {e}")
+            enviar_email_api(str(e), nome_do_servico)
+        
+        # Tempo de espera para a proxima execução da função principal
+        time.sleep(300)        
+        
+"""
