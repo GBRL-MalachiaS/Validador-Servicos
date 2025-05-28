@@ -191,7 +191,7 @@ def carregar_servicos():
         return json.load(arquivo)
 
 
-# --- EXEMPLO DE USO ---
+# --- EXEMPLO DE USO COM MULTIPLOS SERVIÇOS ---
 if __name__ == "__main__":
      # Validação da API - Conselhos Aleatórios
     validar_api("https://api.adviceslip.com/advice")
@@ -244,6 +244,7 @@ if __name__ == "__main__":
 
 # Trecho de codigo responsavel por executar o teste em um unico serviço
 """
+# --- EXEMPLO DE USO COM UM SERVIÇO ---
 if __name__ == "__main__":
     # Variavel para validação de um unico serviço
     nome_do_servico = 'LansweeperAgentService'
