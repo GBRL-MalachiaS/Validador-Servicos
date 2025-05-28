@@ -164,6 +164,7 @@ def enviar_email_api(mensagem, servico):
 # --- EXEMPLO DE USO ---
 if __name__ == "__main__":
     # Validação da API
+    # Validação da API - Conselhos Aleatórios
     validar_api("https://api.adviceslip.com/advice")
 
     nome_do_servico = 'LansweeperAgentService'
