@@ -7,6 +7,7 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
+import xml.etree.ElementTree as ET
 
 # Exceções customizadas para tratamento dos serviços
 
@@ -152,6 +153,56 @@ def validar_api(url):
         print(f"Erro ao acessar a API: {e}")
         return False
 
+def validar_log_servico(caminho_log, nome_servico):
+    """
+    Valida o log XML de um serviço, verificando a última execução e seu status.
+    Caso o serviço esteja parado ou com log desatualizado, dispara um e-mail de alerta.
+
+    Args:
+        caminho_log (str): Caminho do arquivo XML de log.
+        nome_servico (str): Nome do serviço a ser verificado.
+
+    Returns:
+        dict: Status do serviço e se está atualizado.
+    """
+    try:
+        # Lendo o arquivo XML
+        tree = ET.parse(caminho_log)
+        root = tree.getroot()
+
+        # Obtendo a última DataHora registrada
+        ultima_datahora_str = root.find("Log/DataHora").text
+        ultima_execucao = datetime.strptime(ultima_datahora_str, "%Y-%m-%d %H:%M:%S")
+
+        # Pegando a hora atual
+        hora_atual = datetime.now()
+
+        # Validando se o log está atualizado (menos de 60 minutos)
+        log_atualizado = (hora_atual - ultima_execucao) <= timedelta(minutes=60)
+
+        # Verificando status do serviço no Windows
+        status_servico = "Desconhecido"
+        for servico in psutil.win_service_iter():
+            if nome_servico.lower() == servico.name().lower():
+                status_servico = servico.status()
+
+        # Se o serviço estiver parado ou o log estiver desatualizado, envia alerta
+        if status_servico.lower() != "running" or not log_atualizado:
+            mensagem_erro = f"Serviço '{nome_servico}' está com problemas!\n\n" \
+                            f"Status: {status_servico}\nÚltima execução registrada: {ultima_execucao.strftime('%d/%m/%Y %H:%M:%S')}\n" \
+                            f"Log atualizado? {'Sim' if log_atualizado else 'Não'}"
+            enviar_email_api(mensagem_erro, nome_servico)
+
+        return {
+            "servico": nome_servico,
+            "status": status_servico,
+            "log_atualizado": log_atualizado,
+            "ultima_execucao": ultima_execucao.strftime("%d/%m/%Y %H:%M:%S")
+        }
+
+    except Exception as e:
+        print(f"Erro ao validar o log do serviço: {e}")
+        return None
 
 def enviar_email_api(mensagem, servico):
     """
@@ -192,7 +243,7 @@ def carregar_servicos():
 
 
 # --- EXEMPLO DE USO COM MULTIPLOS SERVIÇOS ---
-if __name__ == "__main__":
+"""if __name__ == "__main__":
      # Validação da API - Conselhos Aleatórios
     validar_api("https://api.adviceslip.com/advice")
 
@@ -201,10 +252,10 @@ if __name__ == "__main__":
         hora_atual = datetime.now()
         print("\nInicio da verificação:",
               hora_atual.strftime("%d/%m/%Y - %H:%M:%S"))
-        # Carrega os serviços do JSON
+        # Carrega os serviços do JSON e lista como um dicionario
         servicos = carregar_servicos()
 
-        # Itera sobre cada serviço presente no JSON
+        # Itera sobre cada serviço presente no dicionario de serviços
         for nome_do_servico, info in servicos.items():
             print(f"\nValidando serviço: {nome_do_servico}")
 
@@ -241,11 +292,11 @@ if __name__ == "__main__":
         # Tempo de espera para a proxima execução da função principal
         time.sleep(300)
 
-
-# Trecho de codigo responsavel por executar o teste em um unico serviço
 """
+
+
 # --- EXEMPLO DE USO COM UM SERVIÇO ---
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # Variavel para validação de um unico serviço
     nome_do_servico = 'LansweeperAgentService'
     
@@ -283,5 +334,19 @@ if __name__ == "__main__":
         
         # Tempo de espera para a proxima execução da função principal
         time.sleep(300)        
-        
 """
+
+# --- EXEMPLO DE USO COM UM SERVIÇO PROPRIO VALIDANDO O LOG ---
+if __name__ == "__main__":
+    
+    caminho_log = "../Frases_Servicos/dist/arquivos/log.xml"
+    #caminho_log = "../Frases_Servicos/dist/arquivos/log_desatualizado.xml"
+    nome_servico = "GBL-MeuServicoPython"
+    resultado = validar_log_servico(caminho_log, nome_servico)
+
+    if resultado:
+        print("\nValidação do serviço:")
+        print(f"Serviço: {resultado['servico']}")
+        print(f"Status: {resultado['status']}")
+        print(f"Última execução: {resultado['ultima_execucao']}")
+        print(f"Log atualizado? {'Sim' if resultado['log_atualizado'] else 'Não'}")

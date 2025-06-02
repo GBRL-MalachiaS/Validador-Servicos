@@ -626,7 +626,7 @@
     },
     "Netman": {
         "display_name": "Conexões de Rede",
-        "status": "stopped",
+        "status": "running",
         "start_type": "manual"
     },
     "netprofm": {
@@ -646,12 +646,12 @@
     },
     "NgcCtnrSvc": {
         "display_name": "Contêiner do Microsoft Passport",
-        "status": "running",
+        "status": "stopped",
         "start_type": "manual"
     },
     "NgcSvc": {
         "display_name": "Microsoft Passport",
-        "status": "running",
+        "status": "stopped",
         "start_type": "manual"
     },
     "NlaSvc": {
@@ -871,7 +871,7 @@
     },
     "SensorService": {
         "display_name": "Serviço de Sensor",
-        "status": "stopped",
+        "status": "running",
         "start_type": "manual"
     },
     "SensrSvc": {
@@ -886,7 +886,7 @@
     },
     "SharedAccess": {
         "display_name": "ICS (Compartilhamento de Conexão com a Internet)",
-        "status": "stopped",
+        "status": "running",
         "start_type": "manual"
     },
     "ShellHWDetection": {
@@ -1319,123 +1319,128 @@
         "status": "running",
         "start_type": "automatic"
     },
-    "AarSvc_1260015a": {
-        "display_name": "Agent Activation Runtime_1260015a",
+    "AarSvc_1b427e40": {
+        "display_name": "Agent Activation Runtime_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "BcastDVRUserService_1260015a": {
-        "display_name": "Serviço de Usuário do GameDVR e Transmissão_1260015a",
+    "BcastDVRUserService_1b427e40": {
+        "display_name": "Serviço de Usuário do GameDVR e Transmissão_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "BluetoothUserService_1260015a": {
-        "display_name": "Serviço de Suporte a Usuários de Bluetooth_1260015a",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "CaptureService_1260015a": {
-        "display_name": "CaptureService_1260015a",
+    "BluetoothUserService_1b427e40": {
+        "display_name": "Serviço de Suporte a Usuários de Bluetooth_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "cbdhsvc_1260015a": {
-        "display_name": "Serviço de Usuário da Área de Transferência_1260015a",
-        "status": "running",
-        "start_type": "automatic"
+    "CaptureService_1b427e40": {
+        "display_name": "CaptureService_1b427e40",
+        "status": "stopped",
+        "start_type": "manual"
     },
-    "CDPUserSvc_1260015a": {
-        "display_name": "Serviço de Usuário da Plataforma de Dispositivos Conectados_1260015a",
+    "cbdhsvc_1b427e40": {
+        "display_name": "Serviço de Usuário da Área de Transferência_1b427e40",
         "status": "running",
         "start_type": "automatic"
     },
-    "CloudBackupRestoreSvc_1260015a": {
-        "display_name": "Serviço de Backup e Restauração na Nuvem_1260015a",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "ConsentUxUserSvc_1260015a": {
-        "display_name": "Serviço de Usuário do ConsentUX_1260015a",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "CredentialEnrollmentManagerUserSvc_1260015a": {
-        "display_name": "CredentialEnrollmentManagerUserSvc_1260015a",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "DeviceAssociationBrokerSvc_1260015a": {
-        "display_name": "DeviceAssociationBroker_1260015a",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "DevicePickerUserSvc_1260015a": {
-        "display_name": "DevicePicker_1260015a",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "DevicesFlowUserSvc_1260015a": {
-        "display_name": "DevicesFlow_1260015a",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "MessagingService_1260015a": {
-        "display_name": "MessagingService_1260015a",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "NPSMSvc_1260015a": {
-        "display_name": "Serviço do Gerenciador de Sessão Sendo Reproduzida_1260015a",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "OneSyncSvc_1260015a": {
-        "display_name": "Host de Sincronização_1260015a",
+    "CDPUserSvc_1b427e40": {
+        "display_name": "Serviço de Usuário da Plataforma de Dispositivos Conectados_1b427e40",
         "status": "running",
         "start_type": "automatic"
     },
-    "P9RdrService_1260015a": {
-        "display_name": "P9RdrService_1260015a",
+    "CloudBackupRestoreSvc_1b427e40": {
+        "display_name": "Serviço de Backup e Restauração na Nuvem_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "PenService_1260015a": {
-        "display_name": "PenService_1260015a",
+    "ConsentUxUserSvc_1b427e40": {
+        "display_name": "Serviço de Usuário do ConsentUX_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "PimIndexMaintenanceSvc_1260015a": {
-        "display_name": "Dados de Contato_1260015a",
+    "CredentialEnrollmentManagerUserSvc_1b427e40": {
+        "display_name": "CredentialEnrollmentManagerUserSvc_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "PrintWorkflowUserSvc_1260015a": {
-        "display_name": "PrintWorkflow_1260015a",
+    "DeviceAssociationBrokerSvc_1b427e40": {
+        "display_name": "DeviceAssociationBroker_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "UdkUserSvc_1260015a": {
-        "display_name": "Serviço de usuário UDK_1260015a",
+    "DevicePickerUserSvc_1b427e40": {
+        "display_name": "DevicePicker_1b427e40",
+        "status": "stopped",
+        "start_type": "manual"
+    },
+    "DevicesFlowUserSvc_1b427e40": {
+        "display_name": "DevicesFlow_1b427e40",
         "status": "running",
         "start_type": "manual"
     },
-    "UnistoreSvc_1260015a": {
-        "display_name": "Armazenamento de Dados de Usuário_1260015a",
+    "MessagingService_1b427e40": {
+        "display_name": "MessagingService_1b427e40",
         "status": "stopped",
         "start_type": "manual"
     },
-    "UserDataSvc_1260015a": {
-        "display_name": "Acesso a Dados de Usuário_1260015a",
-        "status": "stopped",
+    "NPSMSvc_1b427e40": {
+        "display_name": "Serviço do Gerenciador de Sessão Sendo Reproduzida_1b427e40",
+        "status": "running",
         "start_type": "manual"
     },
-    "webthreatdefusersvc_1260015a": {
-        "display_name": "Serviço de Defesa do Usuário Contra Ameaças da Web_1260015a",
+    "OneSyncSvc_1b427e40": {
+        "display_name": "Host de Sincronização_1b427e40",
         "status": "running",
         "start_type": "automatic"
     },
-    "WpnUserService_1260015a": {
-        "display_name": "Serviço de Usuário de Notificações por Push do Windows_1260015a",
+    "P9RdrService_1b427e40": {
+        "display_name": "P9RdrService_1b427e40",
+        "status": "stopped",
+        "start_type": "manual"
+    },
+    "PenService_1b427e40": {
+        "display_name": "PenService_1b427e40",
+        "status": "stopped",
+        "start_type": "manual"
+    },
+    "PimIndexMaintenanceSvc_1b427e40": {
+        "display_name": "Dados de Contato_1b427e40",
+        "status": "running",
+        "start_type": "manual"
+    },
+    "PrintWorkflowUserSvc_1b427e40": {
+        "display_name": "PrintWorkflow_1b427e40",
+        "status": "running",
+        "start_type": "manual"
+    },
+    "UdkUserSvc_1b427e40": {
+        "display_name": "Serviço de usuário UDK_1b427e40",
+        "status": "running",
+        "start_type": "manual"
+    },
+    "UnistoreSvc_1b427e40": {
+        "display_name": "Armazenamento de Dados de Usuário_1b427e40",
+        "status": "running",
+        "start_type": "manual"
+    },
+    "UserDataSvc_1b427e40": {
+        "display_name": "Acesso a Dados de Usuário_1b427e40",
+        "status": "running",
+        "start_type": "manual"
+    },
+    "webthreatdefusersvc_1b427e40": {
+        "display_name": "Serviço de Defesa do Usuário Contra Ameaças da Web_1b427e40",
+        "status": "running",
+        "start_type": "automatic"
+    },
+    "WpnUserService_1b427e40": {
+        "display_name": "Serviço de Usuário de Notificações por Push do Windows_1b427e40",
+        "status": "running",
+        "start_type": "automatic"
+    },
+    "GBL-MeuServicoPython": {
+        "display_name": "GBL-MeuServicoPython",
         "status": "running",
         "start_type": "automatic"
     }
