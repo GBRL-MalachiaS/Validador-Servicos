@@ -10,22 +10,17 @@ from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 
 # Exceções customizadas para tratamento dos serviços
-
-
 class ServiceNotFoundException(Exception):
     """Exceção disparada quando o serviço não é encontrado."""
     pass
-
 
 class ServiceInactiveException(Exception):
     """Exceção disparada quando o serviço está registrado, mas não possui um processo ativo ou não pode ser processado."""
     pass
 
-
 class ServiceStaleExecutionException(Exception):
     """Exceção disparada quando a última execução do serviço é anterior ao tempo permitido."""
     pass
-
 
 def listar_servicos():
     """
@@ -50,7 +45,6 @@ def listar_servicos():
 
     return True
 
-
 def validar_servico(nome_servico):
     """
     Valida se o serviço existe no sistema operacional.
@@ -68,7 +62,6 @@ def validar_servico(nome_servico):
         if nome_servico.lower() in servico.name().lower():
             return f"Serviço {nome_servico} foi encontrado."
     raise ServiceNotFoundException(f"Serviço '{nome_servico}' não encontrado.")
-
 
 def processamento(nome_servico):
     """
@@ -101,7 +94,6 @@ def processamento(nome_servico):
     raise ServiceNotFoundException(
         f"Serviço '{nome_servico}' não foi encontrado para processamento.")
 
-
 def ultima_execucao(nome_servico):
     """
     Retorna a data e a hora da última execução do serviço.
@@ -129,7 +121,6 @@ def ultima_execucao(nome_servico):
                     f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo.")
     raise ServiceNotFoundException(
         f"O serviço '{nome_servico}' não foi encontrado.")
-
 
 def validar_api(url):
     """
@@ -240,7 +231,6 @@ def carregar_servicos():
     listar_servicos()
     with open('servicos.json', 'r', encoding='utf-8') as arquivo:
         return json.load(arquivo)
-
 
 # --- EXEMPLO DE USO COM MULTIPLOS SERVIÇOS ---
 """if __name__ == "__main__":
