@@ -1,8 +1,9 @@
 import psutil
 import base64
 import requests
-import time
 import json
+import webbrowser
+import urllib.parse
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
@@ -30,11 +31,17 @@ def listar_servicos():
     for servico in psutil.win_service_iter():
         try:
             info = servico.as_dict()
-            servicos_windows[info['name']] = {
-                'display_name': info.get('display_name', ''),
-                'status': info.get('status', ''),
-                'start_type': info.get('start_type', '')
-            }
+            pid = servico.pid()
+            if pid:
+                processo = psutil.Process(pid)
+                timestamp = processo.create_time()
+                hora_inicio = datetime.fromtimestamp(timestamp)
+                servicos_windows[info['name']] = {
+                    'display_name': info.get('display_name', ''),
+                    'status': info.get('status', ''),
+                    'start_type': info.get('start_type', ''),
+                    'date_time_start':hora_inicio.strftime("%d/%m/%Y - %H:%M:%S")
+                    }
         except Exception as e:
             print(f"Erro ao acessar serviço: {e}")
             continue
@@ -232,100 +239,58 @@ def carregar_servicos():
     with open('servicos.json', 'r', encoding='utf-8') as arquivo:
         return json.load(arquivo)
 
-# --- EXEMPLO DE USO COM MULTIPLOS SERVIÇOS ---
-"""if __name__ == "__main__":
-     # Validação da API - Conselhos Aleatórios
-    validar_api("https://api.adviceslip.com/advice")
 
+def enviar_mensagem_whatsapp():
+    """
+    Pede ao utilizador o número de telefone e a mensagem,
+    e abre o WhatsApp Web no navegador com esses dados.
+    """
+    print("--- Enviar Mensagem pelo WhatsApp Web ---")
+
+    # 1. Pedir o número de telefone
     while True:
-        
-        hora_atual = datetime.now()
-        print("\nInicio da verificação:",
-              hora_atual.strftime("%d/%m/%Y - %H:%M:%S"))
-        # Carrega os serviços do JSON e lista como um dicionario
-        servicos = carregar_servicos()
+        telefone = input("Digite o número de telefone do destinatário (ex: 55119XXXXXXXX para Brasil, 3519XXXXXXXX para Portugal): ")
+        if telefone.isdigit(): # Verifica se contém apenas números
+            break
+        else:
+            print("Número de telefone inválido. Por favor, insira apenas números, incluindo o código do país (sem + ou 00).")
 
-        # Itera sobre cada serviço presente no dicionario de serviços
-        for nome_do_servico, info in servicos.items():
-            print(f"\nValidando serviço: {nome_do_servico}")
+    # 2. Pedir a mensagem
+    mensagem = input("Digite a mensagem que deseja enviar: ")
 
-            if info.get("status", "").lower() in ["running", "active"]:
-                try:
-                    print(validar_servico(nome_do_servico))
+    # 3. Codificar a mensagem para o formato URL
+    # A função quote() de urllib.parse converte caracteres especiais (como espaços)
+    # em formatos que podem ser entendidos por URLs (ex: espaço vira %20).
+    mensagem_codificada = urllib.parse.quote(mensagem)
 
-                    # Obtém dados de processamento e imprime
-                    dados_processamento = processamento(nome_do_servico)
-                    print("Dados de processamento:", dados_processamento)
+    # 4. Construir o URL completo
+    # O URL base é "https://web.whatsapp.com/send?phone="
+    # Adicionamos o número de telefone, depois "&text=" e a mensagem codificada.
+    url = f"https://web.whatsapp.com/send?phone={telefone}&text={mensagem_codificada}"
 
-                    # Obtém a última execução do serviço
-                    execucao = ultima_execucao(nome_do_servico)
-                    print("Horário da última execução:",
-                          execucao.strftime("%d/%m/%Y - %H:%M:%S"))
+    print(f"\nA abrir o WhatsApp Web com a mensagem para o número {telefone}...")
+    print(f"URL: {url}")
 
-                    # Verifica se a última execução ocorreu há mais de 60 minutos
-                    if (hora_atual - execucao) > timedelta(minutes=60):
-                        raise ServiceStaleExecutionException(
-                            f'O serviço {nome_do_servico} foi executado em {execucao.strftime("%d/%m/%Y - %H:%M:%S")}, há mais de 60 minutos. A ação humana é necessária.'
-                        )
-                    else:
-                        print("O serviço está sendo executado conforme esperado.")
+    # 5. Abrir o URL no navegador padrão
+    # A função webbrowser.open() abre o URL no teu navegador padrão.
+    # O new=2 faz com que, se possível, o URL seja aberto numa nova aba.
+    try:
+        webbrowser.open(url, new=2)
+        print("\nO WhatsApp Web deve abrir no seu navegador.")
+        print("Por favor, aguarde o carregamento da página e depois pressione Enter ou clique no botão de enviar na janela do WhatsApp.")
+        # Adicionamos um pequeno atraso para dar tempo ao navegador de abrir.
+        # Este tempo pode ser ajustado conforme necessário.
+        time.sleep(5) # Espera 5 segundos
+        print("\nSe a mensagem e o contato estiverem corretos no navegador, envie a mensagem!")
 
-                # Caso alguma exceção ocorra, dispara o alerta
-                except (ServiceNotFoundException, ServiceInactiveException, ServiceStaleExecutionException) as e:
-                    print(f"Erro detectado no serviço '{nome_do_servico}': {e}")
-                    enviar_email_api(str(e), nome_do_servico)
-            else:
-                print(
-                    f"Serviço '{nome_do_servico}' não está ativo (Status: {info.get('status')}).")
-       
-        print('pause para o tempo de 5 minutos')
-        # Tempo de espera para a proxima execução da função principal
-        time.sleep(300)
+    except Exception as e:
+        print(f"Ocorreu um erro ao tentar abrir o navegador: {e}")
+        print("Por favor, copie o URL acima e cole-o manualmente no seu navegador.")
 
-"""
-
-
-# --- EXEMPLO DE USO COM UM SERVIÇO ---
-"""if __name__ == "__main__":
-    # Variavel para validação de um unico serviço
-    nome_do_servico = 'LansweeperAgentService'
+# Executar a função principal
+if __name__ == "__main__":
+    enviar_mensagem_whatsapp()
     
-    # Validação da API - Conselhos Aleatórios
-    validar_api("https://api.adviceslip.com/advice")
-
-    while True:
-        hora_atual = datetime.now()
-        print("\nInicio da verificação:", hora_atual.strftime("%d/%m/%Y - %H:%M:%S"))
-        
-        try:
-            # Valida se o serviço existe
-            print(validar_servico(nome_do_servico))
-            
-            # Obtém e imprime dados de processamento
-            dados_processamento = processamento(nome_do_servico)
-            print("Dados de processamento:", dados_processamento)
-            
-            # Obtém a última execução do serviço
-            execucao = ultima_execucao(nome_do_servico)
-            print("Horário da última execução:", execucao.strftime("%d/%m/%Y - %H:%M:%S"))
-
-            # Se a última execução for anterior a 60 minutos, levanta exceção para disparar o alerta
-            if (hora_atual - execucao) > timedelta(minutes=60):
-                raise ServiceStaleExecutionException(
-                    f'O serviço {nome_do_servico} foi executado em {execucao.strftime("%d/%m/%Y - %H:%M:%S")}, há mais de 60 minutos. A ação humana é necessária.'
-                )
-            else:
-                print("O serviço está sendo executado conforme esperado.")
-        
-        # Caso ocorra qualquer uma das exceções relacionadas ao serviço, envia o e-mail de alerta
-        except (ServiceNotFoundException, ServiceInactiveException, ServiceStaleExecutionException) as e:
-            print(f"Erro detectado: {e}")
-            enviar_email_api(str(e), nome_do_servico)
-        
-        # Tempo de espera para a proxima execução da função principal
-        time.sleep(300)        
-"""
-
 # --- EXEMPLO DE USO COM UM SERVIÇO PROPRIO VALIDANDO O LOG ---
 if __name__ == "__main__":
     
@@ -340,3 +305,5 @@ if __name__ == "__main__":
         print(f"Status: {resultado['status']}")
         print(f"Última execução: {resultado['ultima_execucao']}")
         print(f"Log atualizado? {'Sim' if resultado['log_atualizado'] else 'Não'}")
+    
+    enviar_mensagem_whatsapp()

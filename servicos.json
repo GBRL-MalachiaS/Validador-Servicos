@@ -1,1447 +1,836 @@
 {
-    "ALG": {
-        "display_name": "Serviço Gateway de Camada de Aplicativo",
-        "status": "stopped",
-        "start_type": "manual"
-    },
     "AppIDSvc": {
         "display_name": "Identidade do Aplicativo",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Appinfo": {
         "display_name": "Informações sobre Aplicativos",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:55:32"
     },
     "AppMgmt": {
         "display_name": "Gerenciamento de aplicativo",
         "status": "running",
-        "start_type": "manual"
-    },
-    "AppReadiness": {
-        "display_name": "Preparação de Aplicativos",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "AppVClient": {
-        "display_name": "Microsoft App-V Client",
-        "status": "stopped",
-        "start_type": "disabled"
+        "start_type": "manual",
+        "date_time_start": "02/06/2025 - 11:49:18"
     },
     "AppXSvc": {
         "display_name": "Serviço de Implantação AppX (AppXSVC)",
         "status": "running",
-        "start_type": "manual"
-    },
-    "ApxSvc": {
-        "display_name": "Serviço proxy de dispositivo de áudio virtual do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "AssignedAccessManagerSvc": {
-        "display_name": "Serviço AssignedAccessManager",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:49:32"
     },
     "AudioEndpointBuilder": {
         "display_name": "Construtor de Pontos de Extremidade de Áudio do Windows",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "Audiosrv": {
         "display_name": "Áudio do Windows",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "autotimesvc": {
-        "display_name": "Hora da Rede Celular",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "AVP.KES.21.19": {
         "display_name": "Kaspersky Endpoint Security service (KES.21.19)",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "avpsus.KES.21.19": {
         "display_name": "Kaspersky Seamless Update Service (KES.21.19)",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "AxInstSV": {
-        "display_name": "Instalador do ActiveX (AxInstSV)",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:55:25"
     },
     "BDESVC": {
         "display_name": "Serviço de Criptografia de Unidade de Disco BitLocker",
         "status": "running",
-        "start_type": "manual"
-    },
-    "BITS": {
-        "display_name": "Serviço de Transferência Inteligente em Segundo Plano",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "BrokerInfrastructure": {
         "display_name": "Serviço de Infraestrutura de Tarefas de Segundo Plano",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "BTAGService": {
         "display_name": "Serviço de Gateway Bluetooth de Áudio",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "BthAvctpSvc": {
         "display_name": "Serviço AVCTP",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "bthserv": {
         "display_name": "Serviço de Suporte a Bluetooth",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "camsvc": {
         "display_name": "Serviço do Gerenciador de Acesso de Recurso",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "CDPSvc": {
         "display_name": "Serviço de Plataforma de Dispositivos Conectados",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "CertPropSvc": {
-        "display_name": "Propagação de Certificado",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:55:25"
     },
     "ClickToRunSvc": {
         "display_name": "Microsoft Office Click-to-Run Service",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "ClipSVC": {
-        "display_name": "Serviço de Licenças de Cliente (ClipSVC)",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "cloudidsvc": {
-        "display_name": "Serviço de identidade Microsoft Cloud",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "COMSysApp": {
-        "display_name": "COM+ System Application",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "CoreMessagingRegistrar": {
         "display_name": "CoreMessaging",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "cplspcon": {
         "display_name": "Intel(R) Content Protection HDCP Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "CryptSvc": {
         "display_name": "Serviços de criptografia",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "CscService": {
-        "display_name": "Arquivos Offline",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "CWAUpdaterService": {
         "display_name": "Citrix Workspace Updater Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "DcomLaunch": {
         "display_name": "Inicializador do Processo de Servidor DCOM",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "dcsvc": {
-        "display_name": "Serviço de Configuração Declarada (DC)",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "defragsvc": {
-        "display_name": "Otimizador de unidade",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "DeviceAssociationService": {
         "display_name": "Serviço de Associação de Dispositivo",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "DeviceInstall": {
         "display_name": "Serviço de Instalação de Dispositivo",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:25"
     },
     "DevQueryBroker": {
         "display_name": "Agente de Descoberta em Segundo Plano de DevQuery",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "Dhcp": {
         "display_name": "Cliente DHCP",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "diagsvc": {
-        "display_name": "Diagnostic Execution Service",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "DiagTrack": {
         "display_name": "Experiências do Usuário Conectado e Telemetria",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "DialogBlockingService": {
-        "display_name": "DialogBlockingService",
-        "status": "stopped",
-        "start_type": "disabled"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "DispBrokerDesktopSvc": {
         "display_name": "Exibir Serviço de Política",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "DisplayEnhancementService": {
         "display_name": "Serviço de Aprimoramento de Exibição",
         "status": "running",
-        "start_type": "manual"
-    },
-    "DmEnrollmentSvc": {
-        "display_name": "Serviço de Registro de Gerenciamento de Dispositivos",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "dmwappushservice": {
-        "display_name": "Serviço de Roteamento de mensagens de envio por Push WAP do Gerenciamento de Dispositivos",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Dnscache": {
         "display_name": "Cliente DNS",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "DolbyDAXAPI": {
         "display_name": "Dolby DAX API Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "DoSvc": {
         "display_name": "Otimização de Entrega",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "dot3svc": {
-        "display_name": "Configuração Automática com Fio",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:59"
     },
     "DPS": {
         "display_name": "Serviço de Política de Diagnóstico",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "dptftcs": {
         "display_name": "Intel(R) Dynamic Tuning Technology Telemetry Service",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "DsmSvc": {
-        "display_name": "Gerenciador de Instalação de Dispositivo",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "DsSvc": {
         "display_name": "Serviço de Compartilhamento de Dados",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 12:32:39"
     },
     "DusmSvc": {
         "display_name": "Uso de Dados",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "EapHost": {
         "display_name": "Protocolo de Autenticação Extensível",
         "status": "running",
-        "start_type": "manual"
-    },
-    "edgeupdate": {
-        "display_name": "Microsoft Edge Update Service (edgeupdate)",
-        "status": "stopped",
-        "start_type": "automatic"
-    },
-    "edgeupdatem": {
-        "display_name": "Microsoft Edge Update Service (edgeupdatem)",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "EFS": {
-        "display_name": "EFS (Encrypting File System)",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:24"
     },
     "ELANFPService": {
         "display_name": "ELAN Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "ElanIapService": {
         "display_name": "Elan Fw Update Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "ElevocService": {
         "display_name": "Elevoc Control Service",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "embeddedmode": {
-        "display_name": "Modo inserido",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "EntAppSvc": {
-        "display_name": "Serviço de Gerenciamento de Aplicativos Empresariais",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "ETDService": {
         "display_name": "ELAN Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "EventLog": {
         "display_name": "Log de Eventos do Windows",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "EventSystem": {
         "display_name": "COM+ evento do sistema",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "fdPHost": {
-        "display_name": "Host de Provedor da Descoberta de Função",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "FDResPub": {
-        "display_name": "Publicação de Recursos de Descoberta de Função",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "fhsvc": {
-        "display_name": "Serviço de Histórico de Arquivos",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "FileSyncHelper": {
         "display_name": "FileSyncHelper",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "02/06/2025 - 12:18:29"
     },
     "FontCache": {
         "display_name": "Serviço de Cache de Fontes do Windows",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "FrameServer": {
         "display_name": "Servidor de Quadros de Câmera do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "FrameServerMonitor": {
-        "display_name": "Monitor do Servidor de Quadro da Câmera do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "GameInputSvc": {
-        "display_name": "GameInput Service",
-        "status": "stopped",
-        "start_type": "manual"
+        "status": "running",
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:36:12"
     },
     "gpsvc": {
         "display_name": "Cliente da Política de Grupo",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "GraphicsPerfSvc": {
-        "display_name": "GraphicsPerfSvc",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:44:57"
     },
     "hidserv": {
         "display_name": "Serviço de Dispositivos de Interface Humana",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "HvHost": {
         "display_name": "Serviço de Host HV",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "IBMPMSVC": {
         "display_name": "Lenovo PM Service",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "icssvc": {
-        "display_name": "Serviço de Hotspot Móvel do Windows",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "igccservice": {
         "display_name": "Intel(R) Graphics Command Center Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "IKEEXT": {
         "display_name": "Módulos de Criação de Chaves IKE e AuthIP do IPSec",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "InstallService": {
         "display_name": "Serviço de Instalação da Microsoft Store",
         "status": "running",
-        "start_type": "manual"
-    },
-    "Intel(R) Platform License Manager Service": {
-        "display_name": "Intel(R) Platform License Manager Service",
-        "status": "stopped",
-        "start_type": "automatic"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:55:45"
     },
     "IntelAudioService": {
         "display_name": "Intel(R) Audio Service",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "InventorySvc": {
-        "display_name": "Serviço de Avaliação de Inventário e Compatibilidade",
-        "status": "stopped",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "ipfsvc": {
         "display_name": "Intel(R) Innovation Platform Framework Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "iphlpsvc": {
         "display_name": "Auxiliar de IP",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "IpxlatCfgSvc": {
-        "display_name": "Serviço de Configuração de Conversão de IP",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "jhi_service": {
         "display_name": "Intel(R) Dynamic Application Loader Host Interface Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "KeyIso": {
         "display_name": "Isolamento de Chave CNG",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "klnagent": {
         "display_name": "Agente de Rede do Kaspersky Security Center",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "ksnproxy": {
-        "display_name": "Servidor proxy do Kaspersky Security Network",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "KtmRm": {
-        "display_name": "KtmRm para Coordenador de Transações Distribuídas",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:55:26"
     },
     "LanmanServer": {
         "display_name": "Server",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "LanmanWorkstation": {
         "display_name": "Estação de trabalho",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "LenovoBrightCtrl": {
-        "display_name": "Lenovo Display Brightness Control Service",
-        "status": "stopped",
-        "start_type": "disabled"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "LenovoSmartStandby": {
         "display_name": "Lenovo Smart Standby",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "LenovoVantageService": {
         "display_name": "Critical Service for Lenovo Vantage",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "lfsvc": {
         "display_name": "Serviço de Geolocalização",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:58:54"
     },
     "LicenseManager": {
         "display_name": "Serviço de Gerenciador de Licença do Windows",
         "status": "running",
-        "start_type": "manual"
-    },
-    "LITSSVC": {
-        "display_name": "Lenovo Intelligent Thermal Solution Service",
-        "status": "stopped",
-        "start_type": "automatic"
-    },
-    "lltdsvc": {
-        "display_name": "Mapeador da Descoberta de Topologia da Camada de Link",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 10:04:37"
     },
     "lmhosts": {
         "display_name": "Auxiliar NetBIOS TCP/IP",
         "status": "running",
-        "start_type": "manual"
-    },
-    "LocalKdc": {
-        "display_name": "Centro de distribuição de chaves locais Kerberos",
-        "status": "stopped",
-        "start_type": "automatic"
-    },
-    "LPlatSvc": {
-        "display_name": "Lenovo Platform Service",
-        "status": "stopped",
-        "start_type": "automatic"
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:03:56"
     },
     "LSM": {
         "display_name": "Gerenciador de Sessão Local",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "LxpSvc": {
-        "display_name": "Serviço de Experiência em Idiomas",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "ManageEngine UEMS - Agent": {
         "display_name": "ManageEngine UEMS - Agent",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "MapsBroker": {
-        "display_name": "Gerenciador de Mapas Baixados",
-        "status": "stopped",
-        "start_type": "automatic"
-    },
-    "McpManagementService": {
-        "display_name": "McpManagementService",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "MDCoreSvc": {
         "display_name": "Serviço Microsoft Defender Core",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "MicrosoftEdgeElevationService": {
-        "display_name": "Microsoft Edge Elevation Service (MicrosoftEdgeElevationService)",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "mpssvc": {
         "display_name": "Windows Defender Firewall",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "MSDTC": {
-        "display_name": "Coordenador de transações distribuídas",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "MSiSCSI": {
-        "display_name": "Serviço Iniciador Microsoft iSCSI",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "msiserver": {
-        "display_name": "Windows Installer",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "MsKeyboardFilter": {
-        "display_name": "Filtro de Teclado da Microsoft",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "NaturalAuthentication": {
-        "display_name": "Autenticação Natural",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "NcaSvc": {
-        "display_name": "Assistente de Conectividade de Rede",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "NcbService": {
         "display_name": "Agente de Conexão de Rede",
         "status": "running",
-        "start_type": "manual"
-    },
-    "NcdAutoSetup": {
-        "display_name": "Instalação Automática de Dispositivos Conectados à Rede",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Netlogon": {
         "display_name": "Logon de rede",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Netman": {
         "display_name": "Conexões de Rede",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 10:50:16"
     },
     "netprofm": {
         "display_name": "Serviço da Lista de Redes",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "NetSetupSvc": {
         "display_name": "Serviço de Configuração de Rede",
         "status": "running",
-        "start_type": "manual"
-    },
-    "NetTcpPortSharing": {
-        "display_name": "Serviço de Compartilhamento de Porta Net.Tcp",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "NgcCtnrSvc": {
-        "display_name": "Contêiner do Microsoft Passport",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "NgcSvc": {
-        "display_name": "Microsoft Passport",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "NlaSvc": {
-        "display_name": "Reconhecimento de locais de rede",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:10:12"
     },
     "nsi": {
         "display_name": "Serviço de Interface de Repositório de Rede",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "OneDrive Updater Service": {
-        "display_name": "OneDrive Updater Service",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "PanGPS": {
         "display_name": "PanGPS",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "PcaSvc": {
         "display_name": "Serviço Auxiliar de Compatibilidade de Programas",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "PeerDistSvc": {
-        "display_name": "BranchCache",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "perceptionsimulation": {
-        "display_name": "Serviço de Simulação de Percepção do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "PerfHost": {
-        "display_name": "Host de DLL de Contador de Desempenho",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:34"
     },
     "PhoneSvc": {
         "display_name": "Serviço de Telefonia",
         "status": "running",
-        "start_type": "manual"
-    },
-    "pla": {
-        "display_name": "Logs e alertas de desempenho",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 11:56:21"
     },
     "PlugPlay": {
         "display_name": "Plug and Play",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "PolicyAgent": {
         "display_name": "Agente de Política IPsec",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "Power": {
         "display_name": "Desligar",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "PrintDeviceConfigurationService": {
-        "display_name": "Serviço de Configuração de Impressora",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "PrintNotify": {
-        "display_name": "Extensões e Notificações da Impressora",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "PrintScanBrokerService": {
-        "display_name": "PrintScanBrokerService",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "ProfSvc": {
         "display_name": "Serviço de Perfil de Usuário",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "PushToInstall": {
-        "display_name": "Serviço Windows PushToInstall",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "QWAVE": {
         "display_name": "Quality Windows Audio Video Experience",
         "status": "running",
-        "start_type": "manual"
-    },
-    "RasAuto": {
-        "display_name": "Gerenciador de conexão de acesso remoto automático",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 13:58:39"
     },
     "RasMan": {
         "display_name": "Gerenciador de conexão de acesso remoto",
         "status": "running",
-        "start_type": "manual"
-    },
-    "refsdedupsvc": {
-        "display_name": "Serviço de duplicação do ReFS",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "RemoteAccess": {
-        "display_name": "Roteamento e Acesso Remoto",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "RemoteRegistry": {
-        "display_name": "Registro remoto",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "RetailDemo": {
-        "display_name": "Serviço de Demonstração de Revenda",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 10:04:59"
     },
     "RmSvc": {
         "display_name": "Serviço de Gerenciamento de Rádio",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:59"
     },
     "RpcEptMapper": {
         "display_name": "Mapeador de Ponto de Extremidade RPC",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "RpcLocator": {
-        "display_name": "Alocador Remote Procedure Call (RPC)",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "RpcSs": {
         "display_name": "RPC (Chamada de Procedimento Remoto)",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "RtkAudioUniversalService": {
         "display_name": "Realtek Audio Universal Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "RtkBtManServ": {
         "display_name": "Realtek Bluetooth Device Manager Service",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "SamSs": {
         "display_name": "Gerente de Contas de Segurança",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "SCardSvr": {
-        "display_name": "Cartão inteligente",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "ScDeviceEnum": {
-        "display_name": "Serviço de Enumeração de Dispositivo de Cartão Inteligente",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Schedule": {
         "display_name": "Agendador de Tarefas",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "SCPolicySvc": {
-        "display_name": "Política de Remoção de Cartão Inteligente",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "SDRSVC": {
-        "display_name": "Backup do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "seclogon": {
-        "display_name": "Logon secundário",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "SecurityHealthService": {
         "display_name": "Serviço de Segurança do Windows",
         "status": "running",
-        "start_type": "manual"
-    },
-    "SEMgrSvc": {
-        "display_name": "Gerenciador de NFC/SE e Pagamentos",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:55:45"
     },
     "SENS": {
         "display_name": "Serviço de Notificação de Eventos do Sistema",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "Sense": {
-        "display_name": "Serviço Proteção Avançada contra Ameaças do Windows Defender",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "SensorDataService": {
-        "display_name": "Serviço de Dados de Sensor",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "SensorService": {
         "display_name": "Serviço de Sensor",
         "status": "running",
-        "start_type": "manual"
-    },
-    "SensrSvc": {
-        "display_name": "Serviço de Monitoramento de Sensor",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "SessionEnv": {
-        "display_name": "Configuração da Área de Trabalho Remota",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 12:32:39"
     },
     "SharedAccess": {
         "display_name": "ICS (Compartilhamento de Conexão com a Internet)",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 10:22:33"
     },
     "ShellHWDetection": {
         "display_name": "Detecção do hardware do shell",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "shpamsvc": {
-        "display_name": "Shared PC Account Manager",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "smphost": {
-        "display_name": "SMP de Espaços de Armazenamento da Microsoft",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "SmsRouter": {
-        "display_name": "Serviço de Roteador SMS do Microsoft Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "SNMPTrap": {
-        "display_name": "Interceptação SNMP",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "Spooler": {
         "display_name": "Spooler de Impressão",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "sppsvc": {
-        "display_name": "Proteção de Software",
-        "status": "stopped",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "SSDPSRV": {
         "display_name": "Descoberta SSDP",
         "status": "running",
-        "start_type": "manual"
-    },
-    "ssh-agent": {
-        "display_name": "OpenSSH Authentication Agent",
-        "status": "stopped",
-        "start_type": "disabled"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:55:51"
     },
     "SstpSvc": {
         "display_name": "Serviço SSTP",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 10:04:58"
     },
     "StateRepository": {
         "display_name": "Serviço de Repositório de Estado",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "StiSvc": {
-        "display_name": "Assistente de aquisição de imagens do Windows (WIA)",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "StorSvc": {
         "display_name": "Serviço de Armazenamento",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "svsvc": {
-        "display_name": "Verificador de Ponto",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "swprv": {
-        "display_name": "Provedor de Cópia de Sombra de Software da Microsoft",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:54:29"
     },
     "SysMain": {
         "display_name": "SysMain",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "SystemEventsBroker": {
         "display_name": "Agente de Eventos do Sistema",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "TapiSrv": {
-        "display_name": "Telefonia",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "TeamViewer": {
         "display_name": "TeamViewer",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "TermService": {
-        "display_name": "Serviços de Área de Trabalho Remota",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "TextInputManagementService": {
         "display_name": "Serviço de Gerenciamento de Entrada de Texto",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "Themes": {
         "display_name": "Temas",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "TieringEngineService": {
-        "display_name": "Gerenciamento de Camadas de Armazenamento",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "TimeBrokerSvc": {
         "display_name": "Agente de Tempo",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "TokenBroker": {
         "display_name": "Gerenciador de Conta da Web",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:55:32"
     },
     "TPHKLOAD": {
         "display_name": "Lenovo Hotkey Client Loader",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "30/05/2025 - 23:38:43"
     },
     "TrkWks": {
         "display_name": "Cliente de rastreamento de link distribuído",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "TroubleshootingSvc": {
-        "display_name": "Serviço de solução de problemas recomendado",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "TrustedInstaller": {
-        "display_name": "Instalador de Módulos do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "tzautoupdate": {
-        "display_name": "Atualizador de Fuso Horário Automático",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "UevAgentService": {
-        "display_name": "Serviço de User Experience Virtualization",
-        "status": "stopped",
-        "start_type": "disabled"
-    },
-    "UmRdpService": {
-        "display_name": "Redirecionador de Portas do Modo do Usuário dos Serviços de Área de Trabalho",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "upnphost": {
-        "display_name": "Host de dispositivo UPnP",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "UserManager": {
         "display_name": "Gerenciador de Usuários",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "UsoSvc": {
         "display_name": "Serviço orquestrador de atualizações",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:55:26"
     },
     "VaultSvc": {
         "display_name": "Gerenciador de Credenciais",
         "status": "running",
-        "start_type": "manual"
-    },
-    "vds": {
-        "display_name": "Disco Virtual",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmicguestinterface": {
-        "display_name": "Interface de Serviço de Convidado do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmicheartbeat": {
-        "display_name": "Serviço de Pulsação do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmickvpexchange": {
-        "display_name": "Serviço de Troca de Dados do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmicrdv": {
-        "display_name": "Serviço de Virtualização de Área de Trabalho Remota do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmicshutdown": {
-        "display_name": "Serviço de Desligamento de Convidado do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmictimesync": {
-        "display_name": "Serviço de Sincronização de Data/Hora do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmicvmsession": {
-        "display_name": "Serviço Direto do Hyper-V PowerShell",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "vmicvss": {
-        "display_name": "Solicitante de Cópia de Sombra de Volume do Hyper-V",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "VSS": {
-        "display_name": "Cópia de Sombra de Volume",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "W32Time": {
         "display_name": "Horário do Windows",
         "status": "running",
-        "start_type": "manual"
-    },
-    "WalletService": {
-        "display_name": "WalletService",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WarpJITSvc": {
-        "display_name": "Warp JIT Service",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "wbengine": {
-        "display_name": "Serviço de Mecanismo de Backup em Nível de Bloco",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WbioSrvc": {
-        "display_name": "Serviço de Biometria do Windows",
-        "status": "running",
-        "start_type": "automatic"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Wcmsvc": {
         "display_name": "Gerenciador de Conexões do Windows",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "wcncsvc": {
         "display_name": "Conexão Fácil do Windows - Registrador de Configuração",
         "status": "running",
-        "start_type": "manual"
-    },
-    "WdiServiceHost": {
-        "display_name": "Host do Serviço de Diagnóstico",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 10:22:21"
     },
     "WdiSystemHost": {
         "display_name": "Host do Sistema de Diagnósticos",
         "status": "running",
-        "start_type": "manual"
-    },
-    "WdNisSvc": {
-        "display_name": "Serviço de Inspeção de Rede do Microsoft Defender Antivírus",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 11:56:26"
     },
     "WebClient": {
         "display_name": "Cliente da Web",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 16:14:03"
     },
     "webthreatdefsvc": {
         "display_name": "Serviço de Defesa Contra Ameaças da Web",
         "status": "running",
-        "start_type": "manual"
-    },
-    "Wecsvc": {
-        "display_name": "Coletor de Eventos do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WEPHOSTSVC": {
-        "display_name": "Serviço de Host do Provedor de Criptografia do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "wercplsupport": {
-        "display_name": "Suporte do Painel de Controle Relatórios de problemas",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WerSvc": {
-        "display_name": "Serviço de Relatórios de Erro do Windows",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WFDSConMgrSvc": {
-        "display_name": "Serviço do Gerenciador de Conexões de Serviços do Wi-Fi Direct",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WiaRpc": {
-        "display_name": "Eventos de Aquisição de Imagens Estáticas",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:55:31"
     },
     "WinDefend": {
         "display_name": "Serviço Microsoft Defender Antivírus",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "WinHttpAutoProxySvc": {
         "display_name": "Serviço de Descoberta Automática de Proxy da Web do WinHTTP",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "29/05/2025 - 09:53:20"
     },
     "Winmgmt": {
         "display_name": "Testador de instrumentação de gerenciam. do Windows",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "WinRM": {
-        "display_name": "Windows Remote Management (WS-Management)",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "wisvc": {
-        "display_name": "Serviço do Participante do Programa Windows Insider",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "WlanSvc": {
         "display_name": "Configuração Automática de WLAN",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "wlidsvc": {
-        "display_name": "Assistente de Conexão de Conta da Microsoft",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "wlpasvc": {
-        "display_name": "Serviço Assistente de Perfil Local",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WManSvc": {
-        "display_name": "Serviço de gerenciamento do Windows",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "wmiApSrv": {
         "display_name": "Adaptador de Desempenho WMI",
         "status": "running",
-        "start_type": "manual"
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:51:27"
     },
     "WMIRegistrationService": {
         "display_name": "Intel(R) Management Engine WMI Provider Registration",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "WMPNetworkSvc": {
-        "display_name": "Serviço de Compartilhamento de Rede do Windows Media Player",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "workfolderssvc": {
-        "display_name": "Pastas de Trabalho",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WpcMonSvc": {
-        "display_name": "Controles dos Pais",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WPDBusEnum": {
-        "display_name": "Serviço Enumerador de Dispositivos Portáteis",
-        "status": "stopped",
-        "start_type": "manual"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "WpnService": {
         "display_name": "Serviço do Sistema de Notificações por Push do Windows",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "WSAIFabricSvc": {
         "display_name": "WSAIFabricSvc",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:53:21"
     },
     "wscsvc": {
         "display_name": "Central de Segurança",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:55:27"
     },
     "WSearch": {
         "display_name": "Windows Search",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:55:27"
     },
     "wuauserv": {
         "display_name": "Windows Update",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "WwanSvc": {
-        "display_name": "Configuração Automática de WWAN",
-        "status": "stopped",
-        "start_type": "manual"
+        "status": "running",
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:03:52"
     },
     "LansweeperAgentService": {
         "display_name": "Lansweeper Agent Service",
         "status": "running",
-        "start_type": "automatic"
-    },
-    "AarSvc_1b427e40": {
-        "display_name": "Agent Activation Runtime_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "BcastDVRUserService_1b427e40": {
-        "display_name": "Serviço de Usuário do GameDVR e Transmissão_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "BluetoothUserService_1b427e40": {
-        "display_name": "Serviço de Suporte a Usuários de Bluetooth_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "CaptureService_1b427e40": {
-        "display_name": "CaptureService_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "cbdhsvc_1b427e40": {
-        "display_name": "Serviço de Usuário da Área de Transferência_1b427e40",
-        "status": "running",
-        "start_type": "automatic"
-    },
-    "CDPUserSvc_1b427e40": {
-        "display_name": "Serviço de Usuário da Plataforma de Dispositivos Conectados_1b427e40",
-        "status": "running",
-        "start_type": "automatic"
-    },
-    "CloudBackupRestoreSvc_1b427e40": {
-        "display_name": "Serviço de Backup e Restauração na Nuvem_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "ConsentUxUserSvc_1b427e40": {
-        "display_name": "Serviço de Usuário do ConsentUX_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "CredentialEnrollmentManagerUserSvc_1b427e40": {
-        "display_name": "CredentialEnrollmentManagerUserSvc_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "DeviceAssociationBrokerSvc_1b427e40": {
-        "display_name": "DeviceAssociationBroker_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "DevicePickerUserSvc_1b427e40": {
-        "display_name": "DevicePicker_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "DevicesFlowUserSvc_1b427e40": {
-        "display_name": "DevicesFlow_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "MessagingService_1b427e40": {
-        "display_name": "MessagingService_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "NPSMSvc_1b427e40": {
-        "display_name": "Serviço do Gerenciador de Sessão Sendo Reproduzida_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "OneSyncSvc_1b427e40": {
-        "display_name": "Host de Sincronização_1b427e40",
-        "status": "running",
-        "start_type": "automatic"
-    },
-    "P9RdrService_1b427e40": {
-        "display_name": "P9RdrService_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "PenService_1b427e40": {
-        "display_name": "PenService_1b427e40",
-        "status": "stopped",
-        "start_type": "manual"
-    },
-    "PimIndexMaintenanceSvc_1b427e40": {
-        "display_name": "Dados de Contato_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "PrintWorkflowUserSvc_1b427e40": {
-        "display_name": "PrintWorkflow_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "UdkUserSvc_1b427e40": {
-        "display_name": "Serviço de usuário UDK_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "UnistoreSvc_1b427e40": {
-        "display_name": "Armazenamento de Dados de Usuário_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "UserDataSvc_1b427e40": {
-        "display_name": "Acesso a Dados de Usuário_1b427e40",
-        "status": "running",
-        "start_type": "manual"
-    },
-    "webthreatdefusersvc_1b427e40": {
-        "display_name": "Serviço de Defesa do Usuário Contra Ameaças da Web_1b427e40",
-        "status": "running",
-        "start_type": "automatic"
-    },
-    "WpnUserService_1b427e40": {
-        "display_name": "Serviço de Usuário de Notificações por Push do Windows_1b427e40",
-        "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "29/05/2025 - 09:54:04"
     },
     "GBL-MeuServicoPython": {
         "display_name": "GBL-MeuServicoPython",
         "status": "running",
-        "start_type": "automatic"
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:27:35"
+    },
+    "cbdhsvc_246afe78": {
+        "display_name": "Serviço de Usuário da Área de Transferência_246afe78",
+        "status": "running",
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:03:53"
+    },
+    "CDPUserSvc_246afe78": {
+        "display_name": "Serviço de Usuário da Plataforma de Dispositivos Conectados_246afe78",
+        "status": "running",
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:03:52"
+    },
+    "DevicesFlowUserSvc_246afe78": {
+        "display_name": "DevicesFlow_246afe78",
+        "status": "running",
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:14:20"
+    },
+    "OneSyncSvc_246afe78": {
+        "display_name": "Host de Sincronização_246afe78",
+        "status": "running",
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:05:52"
+    },
+    "UdkUserSvc_246afe78": {
+        "display_name": "Serviço de usuário UDK_246afe78",
+        "status": "running",
+        "start_type": "manual",
+        "date_time_start": "03/06/2025 - 08:03:54"
+    },
+    "webthreatdefusersvc_246afe78": {
+        "display_name": "Serviço de Defesa do Usuário Contra Ameaças da Web_246afe78",
+        "status": "running",
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:03:53"
+    },
+    "WpnUserService_246afe78": {
+        "display_name": "Serviço de Usuário de Notificações por Push do Windows_246afe78",
+        "status": "running",
+        "start_type": "automatic",
+        "date_time_start": "03/06/2025 - 08:03:53"
     }
 }
