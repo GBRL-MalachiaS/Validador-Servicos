@@ -2,8 +2,6 @@ import psutil
 import base64
 import requests
 import json
-import webbrowser
-import urllib.parse
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
@@ -240,57 +238,6 @@ def carregar_servicos():
         return json.load(arquivo)
 
 
-def enviar_mensagem_whatsapp():
-    """
-    Pede ao utilizador o número de telefone e a mensagem,
-    e abre o WhatsApp Web no navegador com esses dados.
-    """
-    print("--- Enviar Mensagem pelo WhatsApp Web ---")
-
-    # 1. Pedir o número de telefone
-    while True:
-        telefone = input("Digite o número de telefone do destinatário (ex: 55119XXXXXXXX para Brasil, 3519XXXXXXXX para Portugal): ")
-        if telefone.isdigit(): # Verifica se contém apenas números
-            break
-        else:
-            print("Número de telefone inválido. Por favor, insira apenas números, incluindo o código do país (sem + ou 00).")
-
-    # 2. Pedir a mensagem
-    mensagem = input("Digite a mensagem que deseja enviar: ")
-
-    # 3. Codificar a mensagem para o formato URL
-    # A função quote() de urllib.parse converte caracteres especiais (como espaços)
-    # em formatos que podem ser entendidos por URLs (ex: espaço vira %20).
-    mensagem_codificada = urllib.parse.quote(mensagem)
-
-    # 4. Construir o URL completo
-    # O URL base é "https://web.whatsapp.com/send?phone="
-    # Adicionamos o número de telefone, depois "&text=" e a mensagem codificada.
-    url = f"https://web.whatsapp.com/send?phone={telefone}&text={mensagem_codificada}"
-
-    print(f"\nA abrir o WhatsApp Web com a mensagem para o número {telefone}...")
-    print(f"URL: {url}")
-
-    # 5. Abrir o URL no navegador padrão
-    # A função webbrowser.open() abre o URL no teu navegador padrão.
-    # O new=2 faz com que, se possível, o URL seja aberto numa nova aba.
-    try:
-        webbrowser.open(url, new=2)
-        print("\nO WhatsApp Web deve abrir no seu navegador.")
-        print("Por favor, aguarde o carregamento da página e depois pressione Enter ou clique no botão de enviar na janela do WhatsApp.")
-        # Adicionamos um pequeno atraso para dar tempo ao navegador de abrir.
-        # Este tempo pode ser ajustado conforme necessário.
-        time.sleep(5) # Espera 5 segundos
-        print("\nSe a mensagem e o contato estiverem corretos no navegador, envie a mensagem!")
-
-    except Exception as e:
-        print(f"Ocorreu um erro ao tentar abrir o navegador: {e}")
-        print("Por favor, copie o URL acima e cole-o manualmente no seu navegador.")
-
-# Executar a função principal
-if __name__ == "__main__":
-    enviar_mensagem_whatsapp()
-    
 # --- EXEMPLO DE USO COM UM SERVIÇO PROPRIO VALIDANDO O LOG ---
 if __name__ == "__main__":
     
@@ -305,5 +252,3 @@ if __name__ == "__main__":
         print(f"Status: {resultado['status']}")
         print(f"Última execução: {resultado['ultima_execucao']}")
         print(f"Log atualizado? {'Sim' if resultado['log_atualizado'] else 'Não'}")
-    
-    enviar_mensagem_whatsapp()
