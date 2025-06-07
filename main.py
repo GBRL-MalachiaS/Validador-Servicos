@@ -1,7 +1,8 @@
 import psutil
 import base64
 import requests
-import json
+import socket
+import os
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
@@ -21,52 +22,18 @@ class ServiceStaleExecutionException(Exception):
     """Exceção disparada quando a última execução do serviço é anterior ao tempo permitido."""
     pass
 
-def listar_servicos():
-    """
-    Retorna um dicionário com todos os serviços ativos/inativos do servidor.
-    """
-    servicos_windows = {}
-    for servico in psutil.win_service_iter():
-        try:
-            info = servico.as_dict()
-            pid = servico.pid()
-            if pid:
-                processo = psutil.Process(pid)
-                timestamp = processo.create_time()
-                hora_inicio = datetime.fromtimestamp(timestamp)
-                servicos_windows[info['name']] = {
-                    'display_name': info.get('display_name', ''),
-                    'status': info.get('status', ''),
-                    'start_type': info.get('start_type', ''),
-                    'date_time_start':hora_inicio.strftime("%d/%m/%Y - %H:%M:%S")
-                    }
-        except Exception as e:
-            print(f"Erro ao acessar serviço: {e}")
-            continue
+# Configurações de servidores o que tem que validar em cada um 
+dicionario_servicos = {
+    "607-113995": {
+        "Serviços": {
+            "GBL-MeuServicoPython": "../Frases_Servicos/dist/arquivos/log.xml",
+        },
+        "pastas": {
+            "Logs_Serviço_GBL": "../Frases_Servicos/dist/arquivos/",
+        }
+    }
 
-        # Gera um arquivo json, com todos os status do serviços do windows
-        with open('servicos.json', 'w', encoding='utf-8') as arquivo:
-            json.dump(servicos_windows, arquivo, indent=4, ensure_ascii=False)
-
-    return True
-
-def validar_servico(nome_servico):
-    """
-    Valida se o serviço existe no sistema operacional.
-
-    Args:
-        nome_servico (str): Nome do serviço procurado.
-
-    Returns:
-        str: Mensagem informando que o serviço foi encontrado.
-
-    Raises:
-        ServiceNotFoundException: Se o serviço não for encontrado.
-    """
-    for servico in psutil.win_service_iter():
-        if nome_servico.lower() in servico.name().lower():
-            return f"Serviço {nome_servico} foi encontrado."
-    raise ServiceNotFoundException(f"Serviço '{nome_servico}' não encontrado.")
+}
 
 def processamento(nome_servico):
     """
@@ -98,34 +65,6 @@ def processamento(nome_servico):
                     f"Erro ao processar o serviço {nome_servico}: {e}")
     raise ServiceNotFoundException(
         f"Serviço '{nome_servico}' não foi encontrado para processamento.")
-
-def ultima_execucao(nome_servico):
-    """
-    Retorna a data e a hora da última execução do serviço.
-
-    Args:
-        nome_servico (str): Nome do serviço procurado.
-
-    Returns:
-        datetime: Data e hora da criação do processo.
-
-    Raises:
-        ServiceNotFoundException: Se o serviço não for encontrado.
-        ServiceInactiveException: Se o serviço não possuir um processo ativo.
-    """
-    for servico in psutil.win_service_iter():
-        if nome_servico.lower() in servico.name().lower():
-            pid = servico.pid()
-            if pid:
-                processo = psutil.Process(pid)
-                timestamp = processo.create_time()
-                hora_inicio = datetime.fromtimestamp(timestamp)
-                return hora_inicio
-            else:
-                raise ServiceInactiveException(
-                    f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo.")
-    raise ServiceNotFoundException(
-        f"O serviço '{nome_servico}' não foi encontrado.")
 
 def validar_api(url):
     """
@@ -230,25 +169,80 @@ def enviar_email_api(mensagem, servico):
         print(f"Erro ao enviar e-mail via API: {e}")
         return False
 
-# Função responsavel por gerar e carregar o arquivo Servicos.json
-def carregar_servicos():
-    # Chama a função listar serviços para gerar o arquivo serviços.json
-    listar_servicos()
-    with open('servicos.json', 'r', encoding='utf-8') as arquivo:
-        return json.load(arquivo)
+def validar_caminho_pasta(caminho_pasta, nome_pasta, nome_servidor):
+    """
+    Valida se um caminho de pasta existe e envia um e-mail se não existir.
+    """
+    print(f"  > Validando pasta '{nome_pasta}' em '{caminho_pasta}'...")
+    if not os.path.exists(caminho_pasta):
+        print(f"  [ALERTA] A pasta '{caminho_pasta}' NÃO FOI ENCONTRADA no servidor '{nome_servidor}'.")
+        mensagem_erro = (f"Alerta de infraestrutura!\n\n"
+                         f"A pasta '{nome_pasta}' com o caminho esperado '{caminho_pasta}' "
+                         f"não foi encontrada no servidor '{nome_servidor}'.\n\n"
+                         f"Por favor, verifique a integridade do ambiente.")
+        enviar_email_api(mensagem_erro, f"{nome_servidor} - PASTA NÃO ENCONTRADA")
+    else:
+        print(f"  [OK] Pasta '{nome_pasta}' encontrada.")
 
+def analisar_infraestrutura_local(config): 
+    """
+    Identifica o servidor local e executa apenas as validações configuradas para ele.
+    """
+    print("--- INICIANDO ROTINA DE MONITORIZAÇÃO ---")
+    
+    # Obtém o hostname da máquina local e converte para maiúsculas
+    hostname_local = socket.gethostname().upper()
+    print(f"Executando no servidor: {hostname_local}")
+
+    # Verifica se o servidor local está no dicionário de configuração
+    if hostname_local in config:
+        print(f"Configuração encontrada para '{hostname_local}'. Iniciando validações...")
+        detalhes_servidor_atual = config[hostname_local]
+
+        # Validação dos Serviços (baseado no log)
+        if "Serviços" in detalhes_servidor_atual and detalhes_servidor_atual["Serviços"]:
+            print("\n[+] Validando Serviços...")
+            for nome_servico, caminho_log in detalhes_servidor_atual["Serviços"].items():
+                print(f"  > Validando serviço: {nome_servico}...")
+                resultado = validar_log_servico(caminho_log, nome_servico)
+                if resultado:
+                    status = resultado['status']
+                    log_ok = resultado['log_atualizado']
+                    if status.lower() == "running" and log_ok:
+                        print(f"  [OK] Serviço '{nome_servico}' está ativo e com log atualizado.")
+                    else:
+                        print(f"  [ALERTA] Problema encontrado no serviço '{nome_servico}'. Status: {status}, Log Atualizado: {log_ok}.")
+                else:
+                    print(f"  [ERRO] Falha ao processar a validação do serviço '{nome_servico}'. Verifique o log do monitor.")
+
+        # 2. Validação das Pastas
+        if "pastas" in detalhes_servidor_atual and detalhes_servidor_atual["pastas"]:
+            print("\n[+] Validando Pastas...")
+            for nome_pasta, caminho in detalhes_servidor_atual["pastas"].items():
+                validar_caminho_pasta(caminho, nome_pasta, hostname_local)
+        
+        print(f"\n--- Validações para '{hostname_local}' finalizadas. ---")
+
+    else:
+        # O que fazer se o servidor não estiver no dicionário
+        print(f"\n[AVISO] O servidor '{hostname_local}' não foi encontrado no dicionário de configuração.")
+        print("Nenhuma ação de monitorização será executada nesta máquina.")
+
+    print("\n--- ROTINA DE MONITORIZAÇÃO FINALIZADA ---")
 
 # --- EXEMPLO DE USO COM UM SERVIÇO PROPRIO VALIDANDO O LOG ---
 if __name__ == "__main__":
-    
-    caminho_log = "../Frases_Servicos/dist/arquivos/log.xml"
-    #caminho_log = "../Frases_Servicos/dist/arquivos/log_desatualizado.xml"
-    nome_servico = "GBL-MeuServicoPython"
-    resultado = validar_log_servico(caminho_log, nome_servico)
+      
+    # caminho_log = "../Frases_Servicos/dist/arquivos/log.xml"
+    # #caminho_log = "../Frases_Servicos/dist/arquivos/log_desatualizado.xml"
+    # nome_servico = "GBL-MeuServicoPython"
+    # resultado = validar_log_servico(caminho_log, nome_servico)
 
-    if resultado:
-        print("\nValidação do serviço:")
-        print(f"Serviço: {resultado['servico']}")
-        print(f"Status: {resultado['status']}")
-        print(f"Última execução: {resultado['ultima_execucao']}")
-        print(f"Log atualizado? {'Sim' if resultado['log_atualizado'] else 'Não'}")
+    # if resultado:
+    #     print("\nValidação do serviço:")
+    #     print(f"Serviço: {resultado['servico']}")
+    #     print(f"Status: {resultado['status']}")
+    #     print(f"Última execução: {resultado['ultima_execucao']}")
+    #     print(f"Log atualizado? {'Sim' if resultado['log_atualizado'] else 'Não'}")
+        
+        analisar_infraestrutura_local(dicionario_servicos)

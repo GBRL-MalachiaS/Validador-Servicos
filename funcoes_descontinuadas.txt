@@ -1,0 +1,90 @@
+Aqui está meu cemitério de funções criadas que não irei utilizar dentro da minha ferramente de monitoramento
+
+
+# Função responsavel por gerar a ultima execução do serviço
+def ultima_execucao(nome_servico):
+    """
+    Retorna a data e a hora da última execução do serviço.
+
+    Args:
+        nome_servico (str): Nome do serviço procurado.
+
+    Returns:
+        datetime: Data e hora da criação do processo.
+
+    Raises:
+        ServiceNotFoundException: Se o serviço não for encontrado.
+        ServiceInactiveException: Se o serviço não possuir um processo ativo.
+    """
+    for servico in psutil.win_service_iter():
+        if nome_servico.lower() in servico.name().lower():
+            pid = servico.pid()
+            if pid:
+                processo = psutil.Process(pid)
+                timestamp = processo.create_time()
+                hora_inicio = datetime.fromtimestamp(timestamp)
+                return hora_inicio
+            else:
+                raise ServiceInactiveException(
+                    f"O serviço '{nome_servico}' está registrado, mas não possui um processo ativo.")
+    raise ServiceNotFoundException(
+        f"O serviço '{nome_servico}' não foi encontrado.")
+
+
+def listar_servicos():
+    """
+    Retorna um dicionário com todos os serviços ativos/inativos do servidor.
+    """
+    servicos_windows = {}
+    for servico in psutil.win_service_iter():
+        try:
+            info = servico.as_dict()
+            pid = servico.pid()
+            if pid:
+                processo = psutil.Process(pid)
+                timestamp = processo.create_time()
+                hora_inicio = datetime.fromtimestamp(timestamp)
+                servicos_windows[info['name']] = {
+                    'display_name': info.get('display_name', ''),
+                    'status': info.get('status', ''),
+                    'start_type': info.get('start_type', ''),
+                    'date_time_start':hora_inicio.strftime("%d/%m/%Y - %H:%M:%S")
+                    }
+        except Exception as e:
+            print(f"Erro ao acessar serviço: {e}")
+            continue
+
+        # Gera um arquivo json, com todos os status do serviços do windows
+        with open('servicos.json', 'w', encoding='utf-8') as arquivo:
+            json.dump(servicos_windows, arquivo, indent=4, ensure_ascii=False)
+
+    return True
+
+
+# Função responsavel por gerar e carregar o arquivo Servicos.json
+def carregar_servicos():
+    # Chama a função listar serviços para gerar o arquivo serviços.json
+    listar_servicos()
+    with open('servicos.json', 'r', encoding='utf-8') as arquivo:
+        return json.load(arquivo)
+
+
+def validar_servico(nome_servico):
+    """
+    Valida se o serviço existe no sistema operacional.
+
+    Args:
+        nome_servico (str): Nome do serviço procurado.
+
+    Returns:
+        str: Mensagem informando que o serviço foi encontrado.
+
+    Raises:
+        ServiceNotFoundException: Se o serviço não for encontrado.
+    """
+    for servico in psutil.win_service_iter():
+        if nome_servico.lower() in servico.name().lower():
+            return f"Serviço {nome_servico} foi encontrado."
+    raise ServiceNotFoundException(f"Serviço '{nome_servico}' não encontrado.")
+
+
