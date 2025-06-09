@@ -63,8 +63,6 @@ def listar_servicos():
 
 # Função responsavel por gerar e carregar o arquivo Servicos.json
 def carregar_servicos():
-    # Chama a função listar serviços para gerar o arquivo serviços.json
-    listar_servicos()
     with open('servicos.json', 'r', encoding='utf-8') as arquivo:
         return json.load(arquivo)
 

@@ -3,6 +3,7 @@ import base64
 import requests
 import socket
 import os
+import json
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from email.mime.text import MIMEText
@@ -23,17 +24,6 @@ class ServiceStaleExecutionException(Exception):
     pass
 
 # Configurações de servidores o que tem que validar em cada um 
-dicionario_servicos = {
-    "607-113995": {
-        "Serviços": {
-            "GBL-MeuServicoPython": "../Frases_Servicos/dist/arquivos/log.xml",
-        },
-        "pastas": {
-            "Logs_Serviço_GBL": "../Frases_Servicos/dist/arquivos/",
-        }
-    }
-
-}
 
 def processamento(nome_servico):
     """
@@ -169,7 +159,7 @@ def enviar_email_api(mensagem, servico):
         print(f"Erro ao enviar e-mail via API: {e}")
         return False
 
-def validar_caminho_pasta(caminho_pasta, nome_pasta, nome_servidor):
+def validar_pasta(caminho_pasta, nome_pasta, nome_servidor):
     """
     Valida se um caminho de pasta existe e envia um e-mail se não existir.
     """
@@ -219,7 +209,7 @@ def analisar_infraestrutura_local(config):
         if "pastas" in detalhes_servidor_atual and detalhes_servidor_atual["pastas"]:
             print("\n[+] Validando Pastas...")
             for nome_pasta, caminho in detalhes_servidor_atual["pastas"].items():
-                validar_caminho_pasta(caminho, nome_pasta, hostname_local)
+                validar_pasta(caminho, nome_pasta, hostname_local)
         
         print(f"\n--- Validações para '{hostname_local}' finalizadas. ---")
 
@@ -230,19 +220,27 @@ def analisar_infraestrutura_local(config):
 
     print("\n--- ROTINA DE MONITORIZAÇÃO FINALIZADA ---")
 
-# --- EXEMPLO DE USO COM UM SERVIÇO PROPRIO VALIDANDO O LOG ---
-if __name__ == "__main__":
-      
-    # caminho_log = "../Frases_Servicos/dist/arquivos/log.xml"
-    # #caminho_log = "../Frases_Servicos/dist/arquivos/log_desatualizado.xml"
-    # nome_servico = "GBL-MeuServicoPython"
-    # resultado = validar_log_servico(caminho_log, nome_servico)
+# Função de carregamento seguro
+def carregar_configuracao(caminho_arquivo: str = 'config.json') -> dict:
+    try:
+        with open(caminho_arquivo, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        # Apenas regista o erro e retorna um dicionário vazio
+        print(f"Arquivo de configuração não encontrado: '{caminho_arquivo}'")
+        return {}
+    except json.JSONDecodeError:
+        # Apenas regista o erro e retorna um dicionário vazio
+        print(f"Erro de sintaxe no arquivo de configuração: '{caminho_arquivo}'.")
+        return {}
 
-    # if resultado:
-    #     print("\nValidação do serviço:")
-    #     print(f"Serviço: {resultado['servico']}")
-    #     print(f"Status: {resultado['status']}")
-    #     print(f"Última execução: {resultado['ultima_execucao']}")
-    #     print(f"Log atualizado? {'Sim' if resultado['log_atualizado'] else 'Não'}")
-        
-        analisar_infraestrutura_local(dicionario_servicos)
+if __name__ == "__main__":
+    arquivo_config = './servicos.json'
+    configuracao = carregar_configuracao(arquivo_config)
+
+    # Adicionamos uma verificação para garantir que a configuração não está vazia
+    if configuracao:
+        analisar_infraestrutura_local(configuracao)
+    else:
+        # Se a configuração falhou ao carregar, o programa regista o erro e termina de forma controlada.
+       print("Configuração não pôde ser carregada. Verifique os erros acima no log.")
