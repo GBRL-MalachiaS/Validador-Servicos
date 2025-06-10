@@ -235,7 +235,8 @@ def carregar_configuracao(caminho_arquivo: str = 'config.json') -> dict:
         return {}
 
 if __name__ == "__main__":
-    arquivo_config = './servicos.json'
+    # Arquivo de configuração, para serviços. 
+    arquivo_config = './config.json'
     configuracao = carregar_configuracao(arquivo_config)
 
     # Adicionamos uma verificação para garantir que a configuração não está vazia

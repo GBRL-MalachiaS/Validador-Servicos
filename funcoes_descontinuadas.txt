@@ -61,12 +61,6 @@ def listar_servicos():
     return True
 
 
-# Função responsavel por gerar e carregar o arquivo Servicos.json
-def carregar_servicos():
-    with open('servicos.json', 'r', encoding='utf-8') as arquivo:
-        return json.load(arquivo)
-
-
 def validar_servico(nome_servico):
     """
     Valida se o serviço existe no sistema operacional.
