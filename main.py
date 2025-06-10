@@ -242,3 +242,4 @@ if __name__ == "__main__":
         analisar_infraestrutura_local(configuracao)
     else:
        print("Configuração não pôde ser carregada. Verifique os erros acima no log.")
+       
