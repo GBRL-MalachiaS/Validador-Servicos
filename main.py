@@ -25,7 +25,7 @@ class ServiceStaleExecutionException(Exception):
 
 # Configurações de servidores o que tem que validar em cada um 
 
-def processamento(nome_servico):
+def processamento(nome_servico:str):
     """
     Retorna os dados de processamento do serviço.
 
@@ -56,7 +56,7 @@ def processamento(nome_servico):
     raise ServiceNotFoundException(
         f"Serviço '{nome_servico}' não foi encontrado para processamento.")
 
-def validar_api(url):
+def validar_api(url:str):
     """
     Valida se a API enviada está em funcionamento.
 
@@ -78,7 +78,7 @@ def validar_api(url):
         print(f"Erro ao acessar a API: {e}")
         return False
 
-def validar_log_servico(caminho_log, nome_servico):
+def validar_log_servico(caminho_log:str, nome_servico:str):
     """
     Valida o log XML de um serviço, verificando a última execução e seu status.
     Caso o serviço esteja parado ou com log desatualizado, dispara um e-mail de alerta.
@@ -129,7 +129,7 @@ def validar_log_servico(caminho_log, nome_servico):
         print(f"Erro ao validar o log do serviço: {e}")
         return None
 
-def enviar_email_api(mensagem, servico):
+def enviar_email_api(mensagem:str, servico:str):
     """
     Envia a mensagem de erro via e-mail caso o serviço apresente problema.
 
@@ -159,7 +159,7 @@ def enviar_email_api(mensagem, servico):
         print(f"Erro ao enviar e-mail via API: {e}")
         return False
 
-def validar_pasta(caminho_pasta, nome_pasta, nome_servidor):
+def validar_pasta(caminho_pasta:str, nome_pasta:str, nome_servidor:str):
     """
     Valida se um caminho de pasta existe e envia um e-mail se não existir.
     """
@@ -174,7 +174,7 @@ def validar_pasta(caminho_pasta, nome_pasta, nome_servidor):
     else:
         print(f"  [OK] Pasta '{nome_pasta}' encontrada.")
 
-def analisar_infraestrutura_local(config): 
+def analisar_infraestrutura_local(config:str): 
     """
     Identifica o servidor local e executa apenas as validações configuradas para ele.
     """
@@ -220,7 +220,6 @@ def analisar_infraestrutura_local(config):
 
     print("\n--- ROTINA DE MONITORIZAÇÃO FINALIZADA ---")
 
-# Função de carregamento seguro
 def carregar_configuracao(caminho_arquivo: str = 'config.json') -> dict:
     try:
         with open(caminho_arquivo, 'r', encoding='utf-8') as file:
@@ -239,9 +238,7 @@ if __name__ == "__main__":
     arquivo_config = './config.json'
     configuracao = carregar_configuracao(arquivo_config)
 
-    # Adicionamos uma verificação para garantir que a configuração não está vazia
     if configuracao:
         analisar_infraestrutura_local(configuracao)
     else:
-        # Se a configuração falhou ao carregar, o programa regista o erro e termina de forma controlada.
        print("Configuração não pôde ser carregada. Verifique os erros acima no log.")
