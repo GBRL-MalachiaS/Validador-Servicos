@@ -11,21 +11,25 @@ from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 
 # Exceções customizadas para tratamento dos serviços
+
 class ServiceNotFoundException(Exception):
     """Exceção disparada quando o serviço não é encontrado."""
     pass
+
 
 class ServiceInactiveException(Exception):
     """Exceção disparada quando o serviço está registrado, mas não possui um processo ativo ou não pode ser processado."""
     pass
 
+
 class ServiceStaleExecutionException(Exception):
     """Exceção disparada quando a última execução do serviço é anterior ao tempo permitido."""
     pass
 
-# Configurações de servidores o que tem que validar em cada um 
+# Configurações de servidores o que tem que validar em cada um
 
-def processamento(nome_servico:str):
+
+def processamento(nome_servico: str):
     """
     Retorna os dados de processamento do serviço.
 
@@ -56,7 +60,8 @@ def processamento(nome_servico:str):
     raise ServiceNotFoundException(
         f"Serviço '{nome_servico}' não foi encontrado para processamento.")
 
-def validar_api(url:str):
+
+def validar_api(url: str):
     """
     Valida se a API enviada está em funcionamento.
 
@@ -78,7 +83,8 @@ def validar_api(url:str):
         print(f"Erro ao acessar a API: {e}")
         return False
 
-def validar_log_servico(caminho_log:str, nome_servico:str):
+
+def validar_log_servico(caminho_log: str, nome_servico: str):
     """
     Valida o log XML de um serviço, verificando a última execução e seu status.
     Caso o serviço esteja parado ou com log desatualizado, dispara um e-mail de alerta.
@@ -97,13 +103,15 @@ def validar_log_servico(caminho_log:str, nome_servico:str):
 
         # Obtendo a última DataHora registrada
         ultima_datahora_str = root.find("Log/DataHora").text
-        ultima_execucao = datetime.strptime(ultima_datahora_str, "%Y-%m-%d %H:%M:%S")
+        ultima_execucao = datetime.strptime(
+            ultima_datahora_str, "%Y-%m-%d %H:%M:%S")
 
         # Pegando a hora atual
         hora_atual = datetime.now()
 
         # Validando se o log está atualizado (menos de 60 minutos)
-        log_atualizado = (hora_atual - ultima_execucao) <= timedelta(minutes=60)
+        log_atualizado = (
+            hora_atual - ultima_execucao) <= timedelta(minutes=60)
 
         # Verificando status do serviço no Windows
         status_servico = "Desconhecido"
@@ -114,8 +122,8 @@ def validar_log_servico(caminho_log:str, nome_servico:str):
         # Se o serviço estiver parado ou o log estiver desatualizado, envia alerta
         if status_servico.lower() != "running" or not log_atualizado:
             mensagem_erro = f"Serviço '{nome_servico}' está com problemas!\n\n" \
-                            f"Status: {status_servico}\nÚltima execução registrada: {ultima_execucao.strftime('%d/%m/%Y %H:%M:%S')}\n" \
-                            f"Log atualizado? {'Sim' if log_atualizado else 'Não'}"
+                f"Status: {status_servico}\nÚltima execução registrada: {ultima_execucao.strftime('%d/%m/%Y %H:%M:%S')}\n" \
+                f"Log atualizado? {'Sim' if log_atualizado else 'Não'}"
             enviar_email_api(mensagem_erro, nome_servico)
 
         return {
@@ -129,7 +137,8 @@ def validar_log_servico(caminho_log:str, nome_servico:str):
         print(f"Erro ao validar o log do serviço: {e}")
         return None
 
-def enviar_email_api(mensagem:str, servico:str):
+
+def enviar_email_api(mensagem: str, servico: str):
     """
     Envia a mensagem de erro via e-mail caso o serviço apresente problema.
 
@@ -159,34 +168,39 @@ def enviar_email_api(mensagem:str, servico:str):
         print(f"Erro ao enviar e-mail via API: {e}")
         return False
 
-def validar_pasta(caminho_pasta:str, nome_pasta:str, nome_servidor:str):
+
+def validar_pasta(caminho_pasta: str, nome_pasta: str, nome_servidor: str):
     """
     Valida se um caminho de pasta existe e envia um e-mail se não existir.
     """
     print(f"  > Validando pasta '{nome_pasta}' em '{caminho_pasta}'...")
     if not os.path.exists(caminho_pasta):
-        print(f"  [ALERTA] A pasta '{caminho_pasta}' NÃO FOI ENCONTRADA no servidor '{nome_servidor}'.")
+        print(
+            f"  [ALERTA] A pasta '{caminho_pasta}' NÃO FOI ENCONTRADA no servidor '{nome_servidor}'.")
         mensagem_erro = (f"Alerta de infraestrutura!\n\n"
                          f"A pasta '{nome_pasta}' com o caminho esperado '{caminho_pasta}' "
                          f"não foi encontrada no servidor '{nome_servidor}'.\n\n"
                          f"Por favor, verifique a integridade do ambiente.")
-        enviar_email_api(mensagem_erro, f"{nome_servidor} - PASTA NÃO ENCONTRADA")
+        enviar_email_api(
+            mensagem_erro, f"{nome_servidor} - PASTA NÃO ENCONTRADA")
     else:
         print(f"  [OK] Pasta '{nome_pasta}' encontrada.")
 
-def analisar_infraestrutura_local(config:str): 
+
+def analisar_infraestrutura_local(config: str):
     """
     Identifica o servidor local e executa apenas as validações configuradas para ele.
     """
     print("--- INICIANDO ROTINA DE MONITORIZAÇÃO ---")
-    
+
     # Obtém o hostname da máquina local e converte para maiúsculas
     hostname_local = socket.gethostname().upper()
     print(f"Executando no servidor: {hostname_local}")
 
     # Verifica se o servidor local está no dicionário de configuração
     if hostname_local in config:
-        print(f"Configuração encontrada para '{hostname_local}'. Iniciando validações...")
+        print(
+            f"Configuração encontrada para '{hostname_local}'. Iniciando validações...")
         detalhes_servidor_atual = config[hostname_local]
 
         # Validação dos Serviços (baseado no log)
@@ -199,26 +213,31 @@ def analisar_infraestrutura_local(config:str):
                     status = resultado['status']
                     log_ok = resultado['log_atualizado']
                     if status.lower() == "running" and log_ok:
-                        print(f"  [OK] Serviço '{nome_servico}' está ativo e com log atualizado.")
+                        print(
+                            f"  [OK] Serviço '{nome_servico}' está ativo e com log atualizado.")
                     else:
-                        print(f"  [ALERTA] Problema encontrado no serviço '{nome_servico}'. Status: {status}, Log Atualizado: {log_ok}.")
+                        print(
+                            f"  [ALERTA] Problema encontrado no serviço '{nome_servico}'. Status: {status}, Log Atualizado: {log_ok}.")
                 else:
-                    print(f"  [ERRO] Falha ao processar a validação do serviço '{nome_servico}'. Verifique o log do monitor.")
+                    print(
+                        f"  [ERRO] Falha ao processar a validação do serviço '{nome_servico}'. Verifique o log do monitor.")
 
         # 2. Validação das Pastas
         if "pastas" in detalhes_servidor_atual and detalhes_servidor_atual["pastas"]:
             print("\n[+] Validando Pastas...")
             for nome_pasta, caminho in detalhes_servidor_atual["pastas"].items():
                 validar_pasta(caminho, nome_pasta, hostname_local)
-        
+
         print(f"\n--- Validações para '{hostname_local}' finalizadas. ---")
 
     else:
         # O que fazer se o servidor não estiver no dicionário
-        print(f"\n[AVISO] O servidor '{hostname_local}' não foi encontrado no dicionário de configuração.")
+        print(
+            f"\n[AVISO] O servidor '{hostname_local}' não foi encontrado no dicionário de configuração.")
         print("Nenhuma ação de monitorização será executada nesta máquina.")
 
     print("\n--- ROTINA DE MONITORIZAÇÃO FINALIZADA ---")
+
 
 def carregar_configuracao(caminho_arquivo: str = 'config.json') -> dict:
     try:
@@ -230,16 +249,17 @@ def carregar_configuracao(caminho_arquivo: str = 'config.json') -> dict:
         return {}
     except json.JSONDecodeError:
         # Apenas regista o erro e retorna um dicionário vazio
-        print(f"Erro de sintaxe no arquivo de configuração: '{caminho_arquivo}'.")
+        print(
+            f"Erro de sintaxe no arquivo de configuração: '{caminho_arquivo}'.")
         return {}
 
+
 if __name__ == "__main__":
-    # Arquivo de configuração, para serviços. 
+    # Arquivo de configuração, para serviços.
     arquivo_config = './config.json'
     configuracao = carregar_configuracao(arquivo_config)
 
     if configuracao:
         analisar_infraestrutura_local(configuracao)
     else:
-       print("Configuração não pôde ser carregada. Verifique os erros acima no log.")
-       
+        print("Configuração não pôde ser carregada. Verifique os erros acima no log.")
