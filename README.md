@@ -68,7 +68,7 @@ Se você encontrar algum problema ou tiver dúvidas, abra uma issue neste reposi
 
 **Gabriel Malachias**  
 LinkedIn  
-E-mail: gabriel.malachias@rte.com.br
+E-mail: gbl.malachias@gmail.com
 
 ---
 
